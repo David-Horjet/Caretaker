@@ -116,7 +116,7 @@ const Container = styled.div`
       p {
         font-size: 13px;
         line-height: 1.8;
-        margin: 8px 0;
+        margin: 10px 0;
         letter-spacing: 0.5px;
         color: #647589;
       }

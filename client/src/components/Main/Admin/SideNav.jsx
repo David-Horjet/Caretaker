@@ -31,75 +31,31 @@ function SideNav() {
               </NavLink>
             </li>
             <li className="sidebar-item">
-              <div onClick={handleProperty()} className="sidebar-offlink">
+              <NavLink to="/admin/property/new" className="sidebar-link">
                 <BiBuildingHouse />
-                <span>My properties</span>
+                <span>Add Property</span> 
                 <div className="according-menu">
                   <i className="fa fa-angle-right"></i>
                 </div>
-              </div>
-              {handleProperty && (
-                <ul className="nav-submenu menu-content">
-                  <li>
-                    <NavLink to="/admin/property/new">
-                      <CgChevronDoubleRight />
-                      Add property
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/admin/property/all">
-                      <CgChevronDoubleRight />
-                      Property lists
-                    </NavLink>
-                  </li>
-                </ul>
-              )}
+              </NavLink>
             </li>
             <li className="sidebar-item">
-              <Link to="/users" className="sidebar-link">
+              <NavLink to="/admin/property/all" className="sidebar-link">
                 <BsPeople />
-                <span>Users</span>
+                <span>Property Lists</span>
                 <div className="according-menu">
                   <i className="fa fa-angle-right"></i>
                 </div>
-              </Link>
-              <ul className="nav-submenu menu-content">
-                <li>
-                  <Link to="/admin/users/new">
-                    <CgChevronDoubleRight />
-                    Add Users
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/admin/users/all">
-                    <CgChevronDoubleRight />
-                    Users lists
-                  </Link>
-                </li>
-              </ul>
+              </NavLink>
             </li>
             <li className="sidebar-item">
-              <Link to="#" className="sidebar-link">
+              <NavLink to="/admin/tenants" className="sidebar-link">
                 <BsPeople />
-                <span>Agents</span>
+                <span>Tenants</span>
                 <div className="according-menu">
                   <i className="fa fa-angle-right"></i>
                 </div>
-              </Link>
-              <ul className="nav-submenu menu-content">
-                <li>
-                  <Link to="family-house.html">
-                    <CgChevronDoubleRight />
-                    Add Agents
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/admin/agent/all">
-                    <CgChevronDoubleRight />
-                    Agent lists
-                  </Link>
-                </li>
-              </ul>
+              </NavLink>
             </li>
           </ul>
         </div>

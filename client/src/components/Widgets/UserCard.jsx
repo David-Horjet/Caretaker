@@ -1,68 +1,33 @@
-import React from "react";
-import { BsFacebook, BsGoogle, BsLinkedin, BsTwitter } from "react-icons/bs";
-import { NavLink, Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import ProfilePic from "../../assets/images/avatars/1.png"
+import { Context } from "../../context/Context";
 
 function UserCard() {
+  const { user } = useContext(Context);
+
+  const profileText1 = user.firstName.split("")[0];
+  const profileText2 = user.lastName.split("")[0];
+
+  const profileText = profileText1 + profileText2;
   return (
     <Container className="sidebar-user sticky-cls">
       <div className="user-profile">
         <div className="media mb-4 d-flex align-items-center">
-          <div className="avatar">
-            <img
-              src={ProfilePic}
-              className="img-fluid update_img"
-              alt="ProfilePic"
-            />
+          <div className="avatarText d-flex justify-content-center align-items-center">
+            <span>{profileText}</span>
           </div>
           <div className="media-body">
-            <h5>Zack Lee</h5>
-            <h6 className="font-roboto">zackle@gmail.com</h6>
-            <h6 className="font-roboto mb-0">+91 846 - 547 - 210</h6>
+            <h5>{user.firstName + ' ' + user.lastName}</h5>
+            <h6 className="font-roboto">{user.email}</h6>
+            <h6 className="font-roboto mb-0">{user.phone}</h6>
           </div>
-        </div>
-        <div className="social mt-3">
-          <ul className="p-0 mb-0">
-            <li>
-              <Link
-                to="https://www.facebook.com/"
-                className="facebook d-flex align-items-center justify-content-center"
-              >
-                <BsFacebook/>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="https://twitter.com/"
-                className="twitter d-flex align-items-center justify-content-center"
-              >
-                <BsTwitter/>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="https://account.google.com"
-                className="google d-flex align-items-center justify-content-center"
-              >
-            <BsGoogle/>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="https://www.linkedin.com/"
-                className="linkedin d-flex align-items-center justify-content-center"
-              >
-                <BsLinkedin/>
-              </Link>
-            </li>
-          </ul>
         </div>
       </div>
       <div className="dashboard-list py-4">
         <ul>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profile">
+            <NavLink className="nav-link" to="/">
               Dashboard
             </NavLink>
           </li>
@@ -86,9 +51,6 @@ function UserCard() {
               Privacy
             </NavLink>
           </li>
-          <li className="nav-item">
-              Log out
-          </li>
         </ul>
       </div>
     </Container>
@@ -105,6 +67,16 @@ const Container = styled.section`
   .user-profile {
     padding: 20px;
     .media {
+      .avatarText {
+        width: 50px;
+        height: 50px;
+        background-color: var(--theme-color);
+        border-radius: 50%;
+        span {
+          font-weight: 600;
+          color: var(--pure-white);
+        }
+      }
       .media-body {
         margin-left: 20px;
         h5 {
@@ -132,18 +104,6 @@ const Container = styled.section`
             color: #ffffff;
             transition: 0.5s ease;
           }
-          a.facebook {
-            background-color: #3b5998;
-          }
-          a.twitter {
-            background-color: #55acee;
-          }
-          a.google {
-            background-color: #dd4b39;
-          }
-          .linkedin {
-            background-color: #007bb6;
-          }
         }
       }
     }
@@ -159,13 +119,13 @@ const Container = styled.section`
           border: none;
           border-left: 2px solid transparent;
           border-radius: 0;
-          padding: 8px 20px;
+          padding: 20px;
           font-size: 16px;
           text-transform: capitalize;
           font-weight: 500;
           &:hover {
-          border-left-color: var(--theme-color);
-          color: var(--theme-color);
+            border-left-color: var(--theme-color);
+            color: var(--theme-color);
           }
         }
         .nav-link.active {

@@ -47,6 +47,7 @@ function Register() {
         if (res.data.status === true) {
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.data, token: res.data.token });
           toast.success(res.data.message, toastOptions);
+          toast.success("Wait while the application redirects you", toastOptions);
           setTimeout(() => {
             navigate("/");
           }, 3000);

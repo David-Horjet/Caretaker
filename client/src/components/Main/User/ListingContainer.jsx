@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { PropertiesData } from "../../DummyDatas/Properties";
+import SkeletonLoader from "../../Loaders/SkeletonLoader";
 import Property from "./Property";
 
-function ListingContainer({isLoading}) {
+function ListingContainer({properties, isLoading}) {
   return (
     <Container className="py-5">
       <div className="container-fluid">
@@ -16,14 +17,23 @@ function ListingContainer({isLoading}) {
       </div>
       <div className="container-fluid">
         <div className="listings pt-5">
-          <div className="row">
-            {PropertiesData &&
-              PropertiesData.map((data) => {
-                return (
-                  <Property data={data} isLoading={isLoading} key={data._id} />
-                );
-              })}
-          </div>
+        {isLoading ? (
+              <div className="row">
+                <SkeletonLoader />
+              </div>
+            ) : (
+              <div className="row">
+                {properties.map((data) => {
+                  return (
+                    <Property
+                      data={data}
+                      isLoading={isLoading}
+                      key={data._id}
+                    />
+                  );
+                })}
+              </div>
+            )}
         </div>
       </div>
     </Container>

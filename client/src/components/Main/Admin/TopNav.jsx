@@ -10,8 +10,13 @@ import { Context } from "../../../context/Context";
 
 function TopNav({ handleFullScreen }) {
   const navigate = useNavigate();
-  const { dispatch } = useContext(Context);
+  const { user, dispatch } = useContext(Context);
   const [profileActive, setProfileActive] = useState(false);
+  const profileText1 = user?.firstName.split("")[0];
+  const profileText2 = user?.lastName.split("")[0];
+
+  const profileText = profileText1 + profileText2;
+
   const handleProfile = () => {
     setProfileActive(!profileActive);
   };
@@ -62,13 +67,8 @@ function TopNav({ handleFullScreen }) {
               </Link>
             </li>
             <li className="profile-avatar onhover-dropdown">
-              <div className="avatar">
-                <img
-                  src={avatar}
-                  onClick={handleProfile}
-                  className="w-100 h-100 rounded"
-                  alt="user"
-                />
+              <div className="avatarText d-flex justify-content-center align-items-center">
+                <span>{profileText}</span>
               </div>
               {profileActive && (
                 <ul className="profile-dropdown position-absolute position-relative rounded onhover-show-div">
@@ -125,7 +125,7 @@ const Container = styled.div`
     right: 0;
     top: calc(100vh - 76px);
     .hamburger {
-      display: none !importan7
+      display: none !important;
     }
   }
 
@@ -229,6 +229,17 @@ const Container = styled.div`
         }
       }
       .profile-avatar {
+        .avatarText {
+          width: 40px;
+          height: 40px;
+          background-color: var(--theme-color);
+          border-radius: 50%;
+          span {
+            font-weight: 600;
+            color: var(--pure-white);
+            letter-spacing: 1px;
+          }
+        }
         .profile-dropdown {
           right: 15px;
           background-color: var(--pure-white);

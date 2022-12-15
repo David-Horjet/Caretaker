@@ -8,6 +8,7 @@ const { authRouter } = require("./routes/authRoutes");
 const { propertyRouter } = require("./routes/propertyRoutes");
 // const {  paymentRouter } = require("./routes/PaymentRouter/payment");
 const { home } = require("./routes/mainRoutes");
+const {userRouter} = require('./routes/userRoutes')
 
 const app = express();
 
@@ -35,4 +36,4 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", home);
 app.use("/api/auth", authRouter);
 app.use("/api/property", propertyRouter);
-// app.use("/api/payment", paymentRouter );
+app.use("/api/user", userRouter );

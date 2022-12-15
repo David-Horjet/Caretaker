@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Agent from "./Agent";
 
-function Agents() {
+function Agents({users, isUsersLoading}) {
+  console.log(users);
   return (
     <Container className="bg-light">
       <div className="container-fluid">

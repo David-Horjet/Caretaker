@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
+import ContactsHero from "../../components/Main/User/ContactsHero";
 import Header from "../../components/Main/User/Header";
-import Hero from "../../components/Main/User/Hero";
 
 function Contact() {
   useEffect(() => {
@@ -11,7 +11,7 @@ function Contact() {
     <>
       <Container className="wrapper">
         <Header/>
-        <Hero/>
+        <ContactsHero/>
       </Container>
     </>
   );

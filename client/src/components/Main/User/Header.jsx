@@ -5,11 +5,15 @@ import { BsGlobe, BsHeart } from "react-icons/bs";
 import { SiHomeadvisor } from "react-icons/si";
 import { FiUser } from "react-icons/fi";
 import { Context } from "../../../context/Context";
-import Pic from "../../../assets/images/avatars/1.png";
 
 function Header() {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(Context);
+
+    const profileText1 = user?.firstName.split("")[0];
+    const profileText2 = user?.lastName.split("")[0];
+
+    const profileText = profileText1 + profileText2;
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -60,8 +64,8 @@ function Header() {
               </li>
               {user ? (
                 <li className="user">
-                  <div className="avatar">
-                    <img className="w-100" src={Pic} alt="user" />
+                  <div className="avatarText d-flex justify-content-center align-items-center">
+                    <span>{profileText}</span>
                   </div>
                   <ul className="profile-dropdown d-none position-absolute position-relative rounded onhover-show-div">
                     <svg
@@ -75,7 +79,7 @@ function Header() {
                       <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                     </svg>
                     <li className="rounded">
-                      <Link to="/profile">
+                      <Link to={`/${user._id}`}>
                         <span>Profile </span>
                       </Link>
                     </li>
@@ -93,7 +97,7 @@ function Header() {
                 </li>
               ) : (
                 <li>
-                  <Link to={"/login"}>
+                  <Link to={"/admin/login"}>
                     <FiUser />
                   </Link>
                 </li>
@@ -191,6 +195,15 @@ const Container = styled.header`
     }
     .user {
       cursor: pointer;
+      .avatarText {
+        width: 40px;
+        height: 40px;
+        background-color: var(--theme-color);
+        border-radius: 50%;
+        span {
+          font-weight: 600;
+        }
+      }
       &:hover .profile-dropdown {
         display: block !important;
       }
