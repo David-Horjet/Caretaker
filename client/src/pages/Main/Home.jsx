@@ -12,7 +12,7 @@ import OnRent from "../../components/Main/User/OnRent";
 // import Trusted from "../../components/Main/User/Trusted";
 import { Context } from "../../context/Context";
 import { allPropertyRoute, usersRoute } from "../../utils/APIRoutes";
-import { authAxios, Axios } from "../../utils/Axios";
+import { Axios } from "../../utils/Axios";
 import { toastOptions } from "../../utils/Toast";
 
 function Home() {

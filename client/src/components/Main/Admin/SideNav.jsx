@@ -4,11 +4,9 @@ import { SiHomeadvisor } from "react-icons/si";
 import { MdOutlineDashboard } from "react-icons/md";
 import { BiBuildingHouse } from "react-icons/bi";
 import { BsList, BsPeople } from "react-icons/bs";
-import { CgChevronDoubleRight } from "react-icons/cg";
 import { NavLink, Link } from "react-router-dom";
 
 function SideNav() {
-  const handleProperty = () => {};
   return (
     <>
       <Container className="sidenav p-3">

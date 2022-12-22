@@ -1,10 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaHome } from "react-icons/fa";
 import Property from "../User/Property";
 import SkeletonLoader from "../../Loaders/SkeletonLoader";
 import { Context } from "../../../context/Context";
-import { Link } from "react-router-dom";
 // import {PropertiesData} from "../../DummyDatas/Properties"
 
 function PropertyListsContainer({ properties, isLoading }) {
@@ -12,7 +11,7 @@ function PropertyListsContainer({ properties, isLoading }) {
   const newPropertiesArray = properties.filter(function (e) {
     return e.caretaker?._id === user?._id;
   });
-  console.log(newPropertiesArray);
+  // console.log(newPropertiesArray);
   return (
     <Container className="col-lg-3 bg-light">
       <div className="container-fluid">

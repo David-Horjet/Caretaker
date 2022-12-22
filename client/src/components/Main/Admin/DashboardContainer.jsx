@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FaHome } from "react-icons/fa";
 import DashProp from "../../Widgets/DashProp";
 import DashInvoice from "../../Widgets/DashInvoice";
-import DashChart from "../../Widgets/DashChart";
 function DashboardContainer({totalProperties, loadingProperties}) {
   return (
     <Container className="bg-light col-lg-3">

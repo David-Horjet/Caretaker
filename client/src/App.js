@@ -52,7 +52,7 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <AdminLogin />
+                  <Home />
                 )
               }
             />

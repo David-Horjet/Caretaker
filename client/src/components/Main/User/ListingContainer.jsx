@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { PropertiesData } from "../../DummyDatas/Properties";
 import SkeletonLoader from "../../Loaders/SkeletonLoader";
 import Property from "./Property";
 
