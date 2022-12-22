@@ -1,7 +1,7 @@
-// export const host = 'https://caretaker-api.onrender.com'; // live server host
-export const host = 'http://localhost:5000'; // development server host
-// export const clientHost = 'https://caretakers.vercel.app'; // live client host
-export const clientHost = 'http://localhost:3000'; // development client host
+export const host = 'https://caretaker-api.onrender.com'; // live server host
+// export const host = 'http://localhost:5000'; // development server host
+export const clientHost = 'https://caretakers.vercel.app'; // live client host
+// export const clientHost = 'http://localhost:3000'; // development client host
 export const loginRoute = "/api/auth/login";
 export const registerRoute = "/api/auth/register";
 export const userRoute = "/api/user/:id"; 
