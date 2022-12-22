@@ -16,7 +16,7 @@ const propertySchema = new Schema(
       type: String,
       required: true,
     },
-    price : {
+    price: {
       type: Number,
       required: true,
     },
@@ -50,6 +50,11 @@ const propertySchema = new Schema(
     },
     video: {
       type: String,
+      // required: true,
+    },
+    caretaker: {
+      type: Schema.Types.ObjectId,
+      ref: "users",
       required: true,
     },
   },

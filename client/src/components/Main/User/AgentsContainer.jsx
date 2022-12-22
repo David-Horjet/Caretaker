@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { PropertiesData } from "../../DummyDatas/Properties";
-import Property from "./Property";
+import SkeletonLoader from "../../Loaders/SkeletonLoader";
+import Agent from "./Agent";
 
-function AgentsContainer({isLoading}) {
+function AgentsContainer({users, isUsersLoading}) {
+  const newUsersArray = users.filter(function (e) {
+    return e.isAgent === true;
+  });
   return (
     <Container className="py-5">
       <div className="container-fluid">
@@ -16,14 +19,23 @@ function AgentsContainer({isLoading}) {
       </div>
       <div className="container-fluid">
         <div className="listings pt-5">
-          <div className="row">
-            {PropertiesData &&
-              PropertiesData.map((data) => {
-                return (
-                  <Property data={data} isLoading={isLoading} key={data._id} />
-                );
-              })}
-          </div>
+        {isUsersLoading ? (
+              <div className="row">
+                <SkeletonLoader />
+              </div>
+            ) : (
+              <div className="row">
+                {newUsersArray.map((data) => {
+                  return (
+                    <Agent
+                      data={users}
+                      isUsersLoading={isUsersLoading}
+                      key={data._id}
+                    />
+                  );
+                })}
+              </div>
+            )}
         </div>
       </div>
     </Container>

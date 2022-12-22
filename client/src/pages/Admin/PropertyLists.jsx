@@ -18,14 +18,15 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
       const response = await authAxios.get(allPropertyRoute);
       console.log(response);
       if (response.data.status === true) {
-        setProperties(response.data.data)
         setIsLoading(false)
+        setProperties(response.data.data)
       }
     }
     return () => {
       fetchEmployees()
     }
   }, [])
+  
 
   useEffect(() => {
     document.title = "Property Lists- CareTaker Admin";

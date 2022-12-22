@@ -41,13 +41,13 @@ function DashboardContainer({totalProperties, loadingProperties}) {
           </div>
         </div>
       </div>
-      <div className="container-fluid">
+      {/* <div className="container-fluid">
         <div className="row">
           <div className="col-lg-12">
             <DashChart/>
           </div>
         </div>
-      </div>
+      </div> */}
     </Container>
   );
 }

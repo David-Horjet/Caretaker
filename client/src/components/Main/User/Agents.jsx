@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import SkeletonLoader from "../../Loaders/SkeletonLoader";
 import Agent from "./Agent";
 
 function Agents({users, isUsersLoading}) {
-  console.log(users);
+  const newUsersArray = users.filter(function (e) {
+    return e.isAgent === true;
+  });
+  
   return (
     <Container className="bg-light">
       <div className="container-fluid">
@@ -11,12 +15,26 @@ function Agents({users, isUsersLoading}) {
           <div className="col">
             <div className="title-1 text-center">
               <span className="label label-gradient">Agent</span>
-              <h2>Meet Our Agent</h2>
+              <h2>Meet Our Agents</h2>
               <hr />
             </div>
-            <div className="listing-hover-property row">
-              <Agent/>
-            </div>
+            {isUsersLoading ? (
+              <div className="row">
+                <SkeletonLoader />
+              </div>
+            ) : (
+              <div className="row">
+                {newUsersArray.map((data) => {
+                  return (
+                    <Agent
+                      data={users}
+                      isUsersLoading={isUsersLoading}
+                      key={data._id}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

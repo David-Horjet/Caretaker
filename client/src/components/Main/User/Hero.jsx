@@ -9,7 +9,7 @@ function Hero() {
     <Container className="home-section layout-1 layout-6">
       <div className="home-main" style={{ backgroundImage: `url(${heroImg})` }}>
         <div className="container-fluid">
-          <div className="hero pt-5">
+          <div className="hero pt-2">
             <div className="row">
               <div className="col-lg-7">
                 <div className="container-fluid">
@@ -68,22 +68,28 @@ const Container = styled.section`
       .hero {
         padding-top: 5px !important;
         .home-content {
+          h6 {
+            font-size: 15px;
+          }
           h1 {
-            font-size: 40px !important;
+            font-size: 35px !important;
           }
         }
         .home-left {
           .looking-icons {
+            h5 {
+              font-size: 16px;
+            }
             ul {
               li {
                 .looking-icon {
                   padding: 5px !important;
                   min-width: 80px !important;
                   svg {
-                    font-size: 18px;
+                    font-size: 15px;
                   }
                   h6 {
-                    font-size: 15px;
+                    font-size: 12px;
                   }
                 }
               }
@@ -107,7 +113,7 @@ const Container = styled.section`
       }
       h1 {
         color: var(--pure-white);
-        font-size: 50px;
+        font-size: 40px;
         font-weight: 700;
         letter-spacing: 0.03em;
         line-height: 1.3;
@@ -140,14 +146,14 @@ const Container = styled.section`
             .looking-icon {
               background-color: rgba(255, 255, 255, 0.1);
               display: block;
-              padding: 30px;
-              min-width: 150px;
+              padding: 10px;
+              min-width: 100px;
               text-align: center;
               color: var(--pure-white);
               transition: all 0.5s;
               font-size: 25px;
               svg {
-                font: 30px;
+                font: 25px;
               }
               h6 {
                 margin-top: 10px;

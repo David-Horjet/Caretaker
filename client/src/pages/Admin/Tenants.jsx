@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import SideNav from "../../components/Main/Admin/SideNav";
-import TopNav from "../../components/Main/Admin/TopNav";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import SinglePropertyContainer from "../../components/Main/Admin/SinglePropertyContainer";
-import { Axios } from "../../utils/Axios";
-import { singlePropertyRoute } from "../../utils/APIRoutes";
-import { useLocation } from "react-router-dom";
-import { toastOptions } from "../../utils/Toast";
+import React, { useEffect, useState } from 'react'
+import { FullScreen } from 'react-full-screen';
+import { ToastContainer, toast } from 'react-toastify';
+import TopNav from '../../components/Main/Admin/TopNav';
+import SideNav from '../../components/Main/Admin/SideNav';
+import { useLocation } from 'react-router-dom';
+import { Axios } from '../../utils/Axios';
+import styled from 'styled-components';
+import { toastOptions } from '../../utils/Toast';
+import TenantsContainer from '../../components/Main/Admin/TenantsContainer';
+import { getTenantsRoute } from '../../utils/APIRoutes';
 
-function SingleProperty({ FullScreen, handleFullScreen, reportChange }) {
-  const location = useLocation();
-  const [property, setProperty] = useState("");
+function Tenants({handleFullScreen, reportChange}) {
+    const location = useLocation();
+  const [tenants, setTenants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const id = location.pathname.split("/")[3];
 
@@ -23,10 +23,14 @@ function SingleProperty({ FullScreen, handleFullScreen, reportChange }) {
   useEffect(() => {
     async function fetchProperty() {
       try {
-        const response = await Axios.get(`${singlePropertyRoute}/${id}`);
+        const response = await Axios.get(`${getTenantsRoute}`);
         // console.log(response);
+        if (response.data.status === false) {
+          setTenants(response.data.message);
+          setIsLoading(false);
+        }
         if (response.data.status === true) {
-          setProperty(response.data.data);
+          setTenants(response.data.data);
           setIsLoading(false);
         }
       } catch (error) {
@@ -42,7 +46,6 @@ function SingleProperty({ FullScreen, handleFullScreen, reportChange }) {
       fetchProperty();
     };
   }, [id]);
-
   return (
     <>
       <FullScreen handle={handleFullScreen} onChange={reportChange}>
@@ -50,16 +53,13 @@ function SingleProperty({ FullScreen, handleFullScreen, reportChange }) {
           <TopNav handleFullScreen={handleFullScreen} />
           <main className="main row">
             <SideNav />
-            <SinglePropertyContainer
-              property={property}
-              isLoading={isLoading}
-            />
+            <TenantsContainer tenants={tenants} isLoading={isLoading}/>
           </main>
         </Container>
         <ToastContainer />
       </FullScreen>
     </>
-  );
+  )
 }
 
 const Container = styled.div`
@@ -68,4 +68,4 @@ const Container = styled.div`
   }
 `;
 
-export default SingleProperty;
+export default Tenants

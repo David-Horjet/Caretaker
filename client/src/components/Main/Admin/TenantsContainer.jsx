@@ -1,18 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { FaHome } from "react-icons/fa";
-import Property from "../User/Property";
 import SkeletonLoader from "../../Loaders/SkeletonLoader";
 import { Context } from "../../../context/Context";
-import { Link } from "react-router-dom";
-// import {PropertiesData} from "../../DummyDatas/Properties"
+import Tenant from "../User/Tenant";
 
-function PropertyListsContainer({ properties, isLoading }) {
+function TenantsContainer({ tenants, isLoading }) {
+  console.log(tenants)
   const { user } = useContext(Context);
-  const newPropertiesArray = properties.filter(function (e) {
-    return e.caretaker?._id === user?._id;
+  const newTenantsArray = tenants.filter(function (e) {
+    return e.property?.caretaker === user?._id;
   });
-  console.log(newPropertiesArray);
+  console.log(newTenantsArray);
   return (
     <Container className="col-lg-3 bg-light">
       <div className="container-fluid">
@@ -21,7 +20,7 @@ function PropertyListsContainer({ properties, isLoading }) {
             <div className="col-sm-6">
               <div className="page-header-left">
                 <h3>
-                  Property List
+                  Tenants List
                   <small>Welcome to admin panel</small>
                 </h3>
               </div>
@@ -33,32 +32,28 @@ function PropertyListsContainer({ properties, isLoading }) {
                     <FaHome />
                   </a>
                 </li>
-                <li className="breadcrumb-item active">My properties</li>
+                <li className="breadcrumb-item active">My Tenants lists</li>
               </ol>
             </div>
           </div>
         </div>
       </div>
       <div className="container-fluid">
-          <div className="property-lists mt-4 row">
-            {isLoading ? (
-              <div className="row">
-                <SkeletonLoader />
-              </div>
-            ) : (
-              <div className="row">
-                {newPropertiesArray.map((data) => {
-                  return (
-                    <Property
-                      data={data}
-                      isLoading={isLoading}
-                      key={data._id}
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </div>
+        <div className="property-lists mt-4 row">
+          {isLoading ? (
+            <div className="row">
+              <SkeletonLoader />
+            </div>
+          ) : (
+            <div className="row">
+              {newTenantsArray.map((data) => {
+                return (
+                  <Tenant data={data} isLoading={isLoading} key={data._id} />
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
     </Container>
   );
@@ -127,23 +122,6 @@ const Container = styled.div`
       color: #1c2d3a;
     }
   }
-  .buttonNone {
-    background-image: var(--theme-gradient1);
-    border-radius: 30px;
-    color: #ffffff;
-    background-size: 200% auto;
-    -webkit-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    border: 2px solid transparent;
-    font-size: 15px;
-    &:hover {
-      background-position: right center;
-    }
-    a {
-      padding: 30px;
-      color: var(--pure-white);
-    }
-  }
 `;
 
-export default PropertyListsContainer;
+export default TenantsContainer;

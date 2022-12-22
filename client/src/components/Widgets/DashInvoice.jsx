@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FaHandHoldingUsd } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 function DashInvoice() {
   return (
@@ -13,20 +14,20 @@ function DashInvoice() {
       <div className="card-body calculations">
         <ul className="d-flex p-0 m-0">
           <li>
-            <h5 className="font-success">$47,215</h5>
+            <h5 className="font-success">₦0</h5>
             <h6 className="light-font mb-0">Paid invoices</h6>
           </li>
           <li>
-            <h5 className="font-danger">$5,780</h5>
+            <h5 className="font-danger">₦0</h5>
             <h6 className="light-font mb-0">Open invoices</h6>
           </li>
         </ul>
         <div className="d-flex justify-content-between mt-4">
-          <a href="agent-invoice.html" className="label label-light color-4">
+          <Link to="/" className="label label-light color-4">
             <FaHandHoldingUsd />
             Payments Receive
-          </a>
-          <a href="agent-invoice.html" className="arrow-animated">
+          </Link>
+          <Link to="/" className="arrow-animated">
             View all
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +43,7 @@ function DashInvoice() {
             >
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </Container>

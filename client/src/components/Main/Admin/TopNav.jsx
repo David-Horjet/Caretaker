@@ -5,17 +5,15 @@ import { GoSearch } from "react-icons/go";
 import { BsBell } from "react-icons/bs";
 import { FiFileText } from "react-icons/fi";
 import { BiFullscreen } from "react-icons/bi";
-import avatar from "../../../assets/images/avatars/1.png";
 import { Context } from "../../../context/Context";
 
 function TopNav({ handleFullScreen }) {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(Context);
   const [profileActive, setProfileActive] = useState(false);
-  const profileText1 = user?.firstName.split("")[0];
-  const profileText2 = user?.lastName.split("")[0];
 
-  const profileText = profileText1 + profileText2;
+  const profileText = user?.firstName.split("")[0];
+  const fullName = user?.firstName + " " + user?.lastName;
 
   const handleProfile = () => {
     setProfileActive(!profileActive);
@@ -59,15 +57,16 @@ function TopNav({ handleFullScreen }) {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link nav-icon" to="#">
+              <Link className="nav-link nav-bell nav-icon" to="#">
                 <BsBell className="bell" />
-                <span className="label label-shadow label-pill notification-badge">
-                  3
-                </span>
+                <span className="label label-shadow label-pill notification-badge"></span>
               </Link>
             </li>
             <li className="profile-avatar onhover-dropdown">
-              <div className="avatarText d-flex justify-content-center align-items-center">
+              <div
+                onClick={handleProfile}
+                className="avatarText d-flex justify-content-center align-items-center"
+              >
                 <span>{profileText}</span>
               </div>
               {profileActive && (
@@ -84,12 +83,24 @@ function TopNav({ handleFullScreen }) {
                   </svg>
                   <li className="rounded">
                     <Link to="/admin/profile">
-                      <span>Account </span>
+                      <div className="d-flex justify-content-center gap-3 align-items-center">
+                        <div
+                          onClick={handleProfile}
+                          className="avatarText d-flex justify-content-center align-items-center"
+                        >
+                          <span>{profileText}</span>
+                        </div>
+                        <div>
+                          <span className="fullname">{fullName}</span>
+                          <br />
+                          <span>View Profile</span>
+                        </div>
+                      </div>
                     </Link>
                   </li>
                   <li className="rounded">
                     <Link to="/admin/property/all">
-                      <span>Listing </span>
+                      <span>Listings </span>
                     </Link>
                   </li>
                   <li className="rounded">
@@ -156,16 +167,29 @@ const Container = styled.div`
   .header-nav {
     ul {
       margin: 0;
+      .nav-bell {
+        position: relative;
+      }
       li {
         display: inline-block;
-        position: relative;
         width: auto;
         padding: 2px 15px;
         svg {
-          font-size: 23px;
+          font-size: 20px;
         }
         .bell {
           animation: bell 1.5s ease infinite;
+        }
+        .avatarText {
+          width: 35px;
+          height: 35px;
+          background-color: var(--theme-color);
+          border-radius: 50%;
+          cursor: pointer;
+          span {
+            font-weight: 600;
+            color: var(--pure-white);
+          }
         }
         @keyframes bell {
           0% {
@@ -215,30 +239,17 @@ const Container = styled.div`
         }
         .notification-badge {
           position: absolute;
-          top: -1px;
-          right: 5px;
-          font-size: 11px;
-          padding: 2px 6px 0;
+          height: 10px;
+          width: 10px;
+          top: 0px;
+          left: 8px;
           background-color: #f13439;
           border-radius: 9px;
-          font-family: Roboto, sans-serif;
-          font-weight: 500;
-          color: var(--pure-white);
-          display: inline-block;
-          text-transform: capitalize;
         }
       }
       .profile-avatar {
-        .avatarText {
-          width: 40px;
-          height: 40px;
-          background-color: var(--theme-color);
-          border-radius: 50%;
-          span {
-            font-weight: 600;
-            color: var(--pure-white);
-            letter-spacing: 1px;
-          }
+        .fullname {
+          /* font-size: 10px; */
         }
         .profile-dropdown {
           right: 15px;
@@ -248,11 +259,12 @@ const Container = styled.div`
           gap: 5px;
           padding: 10px;
           li {
-            padding: 10px 40px;
+            padding: 10px 30px;
             transition: all 0.5s;
             background-color: #f8f9fa;
             a,
             button {
+              font-size: 14px;
               color: var(--pure-black);
               background: none;
               border: none;

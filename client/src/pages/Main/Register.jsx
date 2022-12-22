@@ -49,7 +49,7 @@ function Register() {
           toast.success(res.data.message, toastOptions);
           toast.success("Wait while the application redirects you", toastOptions);
           setTimeout(() => {
-            navigate("/");
+            navigate("/admin/dashboard");
           }, 3000);
         }
       }

@@ -104,12 +104,12 @@ const Container = styled.div`
   .logo {
     padding-left: 10px;
     svg {
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--theme-color);
     }
     span {
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 700;
       color: var(--faded-black);
       padding-left: 8px;

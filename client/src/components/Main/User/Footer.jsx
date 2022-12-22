@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  BsEnvelopeFill,
-  BsGeoAltFill,
-  BsPhoneFill,
-} from "react-icons/bs";
+import { BsEnvelopeFill, BsGeoAltFill, BsPhoneFill } from "react-icons/bs";
 import { SiHomeadvisor } from "react-icons/si";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -21,21 +17,21 @@ function Footer() {
                   <span className="d-lg-block">CareTaker</span>
                 </Link>
                 <p className="my-4">
-                  This home provides entertaining spaces with a kitchen
-                  opening...
+                  Looking for a way to better manage your properties? Manage your
+                  properties and Rentals with our platform
                 </p>
                 <div className="footer-contact">
                   <ul className="d-grid gap-4 p-0">
                     <li>
                       <BsGeoAltFill />
-                      A-32, Albany, Newyork.
+                      House 5, Off Stateline Road, Akure
                     </li>
                     <li>
                       <BsPhoneFill />
-                      (+066) 518 - 457 - 5181
+                      (+234) 802 - 818 - 7950
                     </li>
                     <li>
-                      <BsEnvelopeFill /> caretaker@gmail.com
+                      <BsEnvelopeFill /> info@caretaker.com
                     </li>
                   </ul>
                 </div>
@@ -45,7 +41,7 @@ function Footer() {
           <div className="col-lg-2 col-sm-3">
             <div className="footer-links footer-left-space">
               <h5 className="footer-title">Quick Links</h5>
-              <ul className="d-grid gap-3 mt-4 p-0 footer-content">
+              <ul className="d-grid gap-4 mt-4 p-0 footer-content">
                 <li>
                   <Link to="/">Home</Link>
                 </li>
@@ -81,29 +77,21 @@ function Footer() {
           <div className="col-lg-2 col-sm-3">
             <div className="footer-links footer-left-space">
               <h5 className="footer-title">Tags</h5>
-              <ul className="d-grid gap-3 mt-4 p-0 footer-content">
-                <li>
-                  <Link to="blog-no-sidebar.html">Blog</Link>
+              <ul className="d-grid gap-4 mt-4 p-0 footer-content">
+              <li>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="blog-list-left-sidebar.html">Blog list</Link>
+                  <Link to="/listings">Listing</Link>
                 </li>
                 <li>
-                  <Link to="blog-creative-right-sidebar.html">
-                    Creative blog
-                  </Link>
+                  <Link to="/listings">Property</Link>
                 </li>
                 <li>
-                  <Link to="blog-masonry-left-sidebar.html">Masonry</Link>
+                  <Link to="/agents">Agents</Link>
                 </li>
                 <li>
-                  <Link to="blog-list-mix-right-sidebar.html">Mix blog</Link>
-                </li>
-                <li>
-                  <Link to="blog-detail-gallery.html">Details</Link>
-                </li>
-                <li>
-                  <Link to="blog-detail-video.html">Video</Link>
+                  <Link to="/contact">Contact</Link>
                 </li>
               </ul>
             </div>

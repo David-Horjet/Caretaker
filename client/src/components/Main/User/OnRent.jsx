@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Property from "./Property";
 import SkeletonLoader from "../../Loaders/SkeletonLoader";
@@ -8,8 +8,8 @@ function OnRent({ properties, isLoading }) {
     return e.status === "Rent";
   });
 
-  const PropertiesData = newPropertiesArray.splice(0, 3);
-  console.log(PropertiesData);
+  const PropertiesData = newPropertiesArray.splice(0, 9);
+  // console.log(PropertiesData);
 
   return (
     <Container className="bg-light">

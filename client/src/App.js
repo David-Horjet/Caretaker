@@ -17,10 +17,14 @@ import Profile from "./pages/Main/Profile";
 import Register from "./pages/Main/Register";
 import PageNotFound from "./pages/Main/404";
 import { Context } from "./context/Context";
-import TenantForm from "./pages/User/TenantForm";
+import TenantForm from "./pages/Main/TenantForm";
+import Tenants from "./pages/Admin/Tenants";
+import TenantsApplication from "./pages/Main/TenantsApplication";
 
 function App() {
-  const {user} = useContext(Context);
+  const { user } = useContext(Context);
+
+  // const user = () => true;
 
   const handleFullScreen = useFullScreenHandle();
   const reportChange = useCallback(
@@ -37,8 +41,23 @@ function App() {
       <div>
         <BrowserRouter>
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route
+              exact
+              path="/"
+              element={
+                user ? (
+                  <AdminDashboard
+                    handleFullScreen={handleFullScreen}
+                    FullScreen={FullScreen}
+                    reportChange={reportChange}
+                  />
+                ) : (
+                  <AdminLogin />
+                )
+              }
+            />
             <Route exact path="/listings" element={<Listings />} />
+            <Route exact path="/listings/:id" element={<Listings />} />
             <Route exact path="/agents" element={<Agents />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/:id" element={user ? <Profile /> : <Login />} />
@@ -70,7 +89,7 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <Login />
+                  <AdminLogin />
                 )
               }
             />
@@ -85,7 +104,7 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <Login />
+                  <AdminLogin />
                 )
               }
             />
@@ -100,12 +119,24 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <Login />
+                  <AdminLogin />
                 )
               }
             />
             <Route exact path="/admin/login" element={<AdminLogin />} />
-            <Route exact path="/tenant" element={<TenantForm />} />
+            <Route
+              exact
+              path="/admin/tenants"
+              element={
+                <Tenants
+                  handleFullScreen={handleFullScreen}
+                  FullScreen={FullScreen}
+                  reportChange={reportChange}
+                />
+              }
+            />
+            <Route exact path="/tenantform/:id" element={<TenantForm />} />
+            <Route exact path="/tenant/details/:id" element={<TenantsApplication />} />
             <Route exact path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>

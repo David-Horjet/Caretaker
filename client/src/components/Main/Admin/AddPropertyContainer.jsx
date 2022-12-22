@@ -66,13 +66,14 @@ function AddPropertyContainer({
                       <option value="Villa">Villa</option>
                       <option value="Duplex">Duplex</option>
                       <option value="Shop">Shop</option>
+                      <option value="Land">Land</option>
+                      <option value="Others">Others</option>
                     </select>
                   </div>
                   <div className="form-group col-lg-4 select-group justify-content-between">
                     <label>Property Status</label>
                     <select name="status" onChange={(e) => handleChange(e)}>
                       <option value="Rent">Rent</option>
-                      <option value="Sale">Sale</option>
                     </select>
                   </div>
                   <div className="form-group col-lg-4">
@@ -187,7 +188,7 @@ function AddPropertyContainer({
                       </button>
                     )}
                     <Link
-                      to="/admin/register"
+                      to="/"
                       className="btn btn-dashed btn-pill color-2"
                     >
                       Cancel
@@ -334,7 +335,7 @@ const Container = styled.div`
     }
     .auth {
       button {
-        background-image: var(--theme-gradient);
+        background-image: var(--theme-gradient1);
         border-radius: 30px;
         color: #ffffff;
         background-size: 200% auto;

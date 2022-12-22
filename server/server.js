@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const { authRouter } = require("./routes/authRoutes");
 const { propertyRouter } = require("./routes/propertyRoutes");
-// const {  paymentRouter } = require("./routes/PaymentRouter/payment");
+const { tenantRouter } = require("./routes/tenantRoutes");
 const { home } = require("./routes/mainRoutes");
 const {userRouter} = require('./routes/userRoutes')
 
@@ -37,3 +37,4 @@ app.use("/", home);
 app.use("/api/auth", authRouter);
 app.use("/api/property", propertyRouter);
 app.use("/api/user", userRouter );
+app.use("/api/tenant", tenantRouter );

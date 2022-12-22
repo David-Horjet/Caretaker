@@ -3,22 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
 import Agents from "../../components/Main/User/Agents";
-import Featured from "../../components/Main/User/Featured";
+// import Featured from "../../components/Main/User/Featured";
 import Footer from "../../components/Main/User/Footer";
 import Header from "../../components/Main/User/Header";
 import Hero from "../../components/Main/User/Hero";
 import Offer from "../../components/Main/User/Offer";
 import OnRent from "../../components/Main/User/OnRent";
-import OnSale from "../../components/Main/User/OnSale";
+// import Trusted from "../../components/Main/User/Trusted";
 import { Context } from "../../context/Context";
 import { allPropertyRoute, usersRoute } from "../../utils/APIRoutes";
-import { authAxios } from "../../utils/Axios";
+import { authAxios, Axios } from "../../utils/Axios";
 import { toastOptions } from "../../utils/Toast";
 
 function Home() {
   const [properties, setProperties] = useState([]);
-  const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [users, setUsers] = useState([]);
   const [isUsersLoading, setIsUsersLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ function Home() {
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
-    navigate("/login");
+    navigate("/admin/login");
   };
 
   useEffect(() => {
@@ -36,7 +36,8 @@ function Home() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await authAxios.get(allPropertyRoute);
+        const response = await Axios.get(allPropertyRoute);
+        // console.log(response);
         if (response.data.status === true) {
           setProperties(response.data.data);
           setIsLoading(false);
@@ -58,7 +59,7 @@ function Home() {
   useEffect(() => {
     async function getUsers() {
       try {
-        const response = await authAxios.get(usersRoute);
+        const response = await Axios.get(usersRoute);
         console.log(response);
         if (response.data.status === true) {
           setUsers(response.data.data);
@@ -84,8 +85,8 @@ function Home() {
       <Container className="wrapper">
         <Header handleLogout={handleLogout} user={user} />
         <Hero />
-        <OnSale properties={properties} isLoading={isLoading} />
-        <Featured />
+        {/* <Trusted /> */}
+        {/* <Featured /> */}
         <OnRent properties={properties} isLoading={isLoading} />
         <Offer />
         <Agents users={users} isUsersLoading={isUsersLoading} />

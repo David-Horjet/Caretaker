@@ -1,89 +1,25 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { BsHeart, BsShare } from "react-icons/bs";
-import { IoIosBed } from "react-icons/io";
 import "react-loading-skeleton/dist/skeleton.css";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
-import { FaBath, FaRulerCombined } from "react-icons/fa";
-import { toastOptions } from "../../../utils/Toast";
-import { clientHost } from "../../../utils/APIRoutes";
 
-function Property({ data }) {
-  const copyPropertyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(`${clientHost}/tenantform/${data._id}`);
-      toast.success("Property Link successfully copied", toastOptions);
-    } catch (err) {
-      toast.error("An error occured copying property link", toastOptions);
-    }
-  };
+function Tenant({ data }) {
   return (
     <>
       <Container className="col-lg-4 col-sm-6 mb-4">
         <div className="property-box">
-          <div className="property-image">
-            <img className="w-100 h-100" src={data.image} alt="propertyImage" />
-            <div className="status">
-              <span>{data.status}</span>
-            </div>
-            <div className="options">
-              <div className="wish">
-                <BsHeart />
-              </div>
-              <div className="copy">
-                <BsShare />
-                <ul className="profile-dropdown d-none position-absolute position-relative rounded onhover-show-div">
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    className="position-absolute top-0 start-50 translate-middle mt-1 bi bi-caret-up-fill"
-                    fill="#ffffff"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-                  </svg>
-                  <li className="rounded">
-                    <Link onClick={copyPropertyLink} to={`/admin/property/all`}>
-                      <span>Copy</span>
-                    </Link>
-                  </li>
-                  <li className="rounded">
-                    <a href={`${clientHost}/tenantform/${data._id}`}target="_blank" rel="noopener noreferrer">
-                      <span>Go</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
           <div className="property-details p-3">
-            <span className="font-roboto mb-2">{data.country}</span>
-            <Link to={`/admin/property/${data._id}`}>
+            <span className="font-roboto mb-2">{data.property.title}</span>
+            <Link to={`/tenantform/${data._id}`}>
               <h4>{data.title}</h4>
             </Link>
-            <h6>₦{data.price}</h6>
-            <p className="font-roboto light-font">{data.description}</p>
-            <ul className="px-0 mb-3 d-flex justify-content-between align-items-center">
-              <li>
-                <IoIosBed /> Room : {data.room}
-              </li>
-              <li>
-                <FaBath />
-                Bed : {data.bed}
-              </li>
-              <li>
-                <FaRulerCombined />
-                Sq Ft : NaN
-              </li>
-            </ul>
+            <h6>Tenant: {data.firstName} {data.lastName}</h6>
+            <h6>Email: {data.email}</h6>
             <div className="property-btn d-flex align-items-center justify-content-between">
-              <span>August 4, 2022</span>
+              <span>{new Date(data.createdAt).toDateString()}</span>
               <button type="button" className="btn btn-dashed btn-pill color-2">
-                <Link to={`/admin/property/${data._id}`}>Details</Link>
+                <Link to={`/tenant/details/${data._id}`}>Details</Link>
               </button>
             </div>
           </div>
@@ -250,4 +186,4 @@ const Container = styled.div`
   }
 `;
 
-export default Property;
+export default Tenant;

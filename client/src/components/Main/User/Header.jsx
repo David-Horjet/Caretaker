@@ -10,10 +10,7 @@ function Header() {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(Context);
 
-    const profileText1 = user?.firstName.split("")[0];
-    const profileText2 = user?.lastName.split("")[0];
-
-    const profileText = profileText1 + profileText2;
+    const profileText = user?.firstName.split("")[0];
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
@@ -79,8 +76,8 @@ function Header() {
                       <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                     </svg>
                     <li className="rounded">
-                      <Link to={`/${user._id}`}>
-                        <span>Profile </span>
+                      <Link to={`/admin/dashboard`} target="_blank">
+                        <span>Dashboard </span>
                       </Link>
                     </li>
                     <li className="rounded">
@@ -96,8 +93,8 @@ function Header() {
                   </ul>
                 </li>
               ) : (
-                <li>
-                  <Link to={"/admin/login"}>
+                <li className="user">
+                  <Link to="/admin/login">
                     <FiUser />
                   </Link>
                 </li>

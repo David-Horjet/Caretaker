@@ -12,7 +12,7 @@ function DashProp({ totalProperties, loadingProperties }) {
     <Container className="card">
       <div className="card-body">
         <div className="media mb-4 d-flex align-items-center">
-          <img src={houseIcon} className="img-fluid" alt="" />
+          <img src={houseIcon} className="img-fluid" alt="houseImage" />
           <div className="media-body">
             {loadingProperties ? (
               <h4 className="mb-0">{totalProperties}</h4>
@@ -46,7 +46,7 @@ function DashProp({ totalProperties, loadingProperties }) {
             <BiBuildingHouse />
             <div>
               <h5>1500</h5>
-              <span className="light-font">Sale</span>
+              <span className="light-font">Properties</span>
             </div>
           </li>
           <li>

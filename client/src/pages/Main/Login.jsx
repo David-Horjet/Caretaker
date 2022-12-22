@@ -180,6 +180,9 @@ function Login() {
                       Register
                     </Link>
                   </div>
+                  <div className="text-center mt-5">
+                    <small>Sign in as a <Link to={"/admin/login"}>Caretaker</Link></small>
+                  </div>
                 </form>
               </div>
             </div>

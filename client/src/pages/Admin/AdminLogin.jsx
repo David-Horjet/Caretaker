@@ -159,7 +159,7 @@ function AdminLogin() {
                       Forgot password ?
                     </Link>
                   </div>
-                  <div className="auth d-flex justify-content-center">
+                  <div className="auth d-flex justify-content-between">
                     {!isFetching ? (
                       <button
                         type="submit"
@@ -175,6 +175,11 @@ function AdminLogin() {
                         <RoundLoader />
                       </button>
                     )}
+                    <Link
+                      to="/register"
+                    >
+                      Register
+                    </Link>
                   </div>
                 </form>
               </div>

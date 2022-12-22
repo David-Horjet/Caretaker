@@ -1,92 +1,114 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Context } from "../../context/Context";
 import RoundLoader from "../../components/Loaders/RoundLoader";
 import toastOptions from "../../components/Toast/ToastOptions";
 import { Axios } from "../../utils/Axios";
+import { addTenantRoute, singlePropertyRoute } from "../../utils/APIRoutes";
+import StrokeLoader from "../../components/Loaders/StrokeLoader";
 
 function TenantForm() {
-  const navigate = useNavigate();
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [property, setProperty] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
     gender: "Male",
-    phone: "",
+    phone: 0,
     address: "",
-    description: "",
+    about: "",
   });
-  const { dispatch, isFetching } = useContext(Context);
 
   useEffect(() => {
-    document.title = "Admin Tenant-Form - CareTaker";
+    document.title = "Tenant-Form - CareTaker";
   });
+
+  useEffect(() => {
+    async function fetchProperty() {
+      try {
+        const response = await Axios.get(`${singlePropertyRoute}/${id}`);
+        // console.log(response);
+        if (response.data.status === true) {
+          setProperty(response.data.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (error && error.message === "Network Error") {
+          toast.error(
+            "Seems you're offline, please connect to a stable network",
+            toastOptions
+          );
+        }
+      }
+    }
+    return () => {
+      fetchProperty();
+    };
+  }, [id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       if (handleValidation()) {
-        dispatch({ type: "LOGIN_START" });
-        const res = await Axios.post("", values);
+        setIsFetching(true)
+        const res = await Axios.post(`${addTenantRoute}/${id}`, values);
+        // console.log(res);
         if (res.data.status === false) {
-          dispatch({ type: "LOGIN_FAILURE" });
-          toast.error(res.data.msg, toastOptions);
+          toast.error(res.data.message, toastOptions);
+          setIsFetching(false)
         }
         if (res.data.status === true) {
-          dispatch({ type: "LOGIN_SUCCESS", payload: res.data.data });
-          localStorage.setItem("token", JSON.stringify(res.data.token));
-          setTimeout(() => {
-            navigate("/");
-          }, 7000);
-          toast.success(res.data.msg, toastOptions);
+          toast.success(res.data.message, toastOptions);
+          setIsFetching(false)
         }
       }
     } catch (error) {
-      dispatch({ type: "LOGIN_FAILURE" });
-      // toast.error("Internal server error occured", toastOptions);
+      if (error && error.message === "Network Error") {
+        toast.error(
+          "Seems you're offline, please connect to a stable network",
+          toastOptions
+        );
+        setIsFetching(false)
+      }
     }
   };
 
   const handleValidation = () => {
-    const {
-      firstName,
-      lastName,
-      email,
-      gender,
-      phone,
-      address,
-      description,
-    }  = values;
+    const { firstName, lastName, email, gender, phone, address, about } =
+      values;
     if (firstName === "") {
       toast.error("First name is required", toastOptions);
-      dispatch({ type: "LOGIN_FAILURE" });
+      setIsFetching(false)
       return false;
     } else if (lastName === "") {
       toast.error("Last name is required", toastOptions);
-      dispatch({ type: "LOGIN_FAILURE" });
+      setIsFetching(false)
       return false;
     } else if (email === "") {
       toast.error("Email is required", toastOptions);
-      dispatch({ type: "LOGIN_FAILURE" });
+      setIsFetching(false)
       return false;
     } else if (gender === "") {
       toast.error("Gender is required", toastOptions);
-      dispatch({ type: "LOGIN_FAILURE" });
+      setIsFetching(false)
       return false;
     } else if (phone === "") {
       toast.error("Phone number is required", toastOptions);
-      dispatch({ type: "LOGIN_FAILURE" });
+      setIsFetching(false)
       return false;
     } else if (address === "") {
       toast.error("Address is required", toastOptions);
-      dispatch({ type: "LOGIN_FAILURE" });
+      setIsFetching(false)
       return false;
-    } else if (description === "") {
-      toast.error("Description is required", toastOptions);
-      dispatch({ type: "LOGIN_FAILURE" });
+    } else if (about === "") {
+      toast.error("About is required", toastOptions);
+      setIsFetching(false)
       return false;
     }
     return true;
@@ -101,13 +123,13 @@ function TenantForm() {
       <FormContainer className="bg-light">
         <div className="row h-100 log-in">
           <div className="col-lg-2 col-sm-1"></div>
-          <div className="col-lg-8 col-sm-10 form-login">
+          {isLoading ? (<StrokeLoader/>) : (<div className="col-lg-8 col-sm-10 form-login">
             <div className="card rounded shadow mt-5 p-4">
               <div className="card-body">
                 <div className="title-3 mb-1 text-center">
-                  <h2>Add Property</h2>
+                  <h2>{property.title}</h2>
                 </div>
-                <div className="title-3 mb-3 text-center">
+                <div className="title-3 mb-4 text-center">
                   <p>
                     Welcome To the Tenants Application Form, Please fill in your
                     correct details
@@ -158,7 +180,7 @@ function TenantForm() {
                   <div className="form-group col-sm-6">
                     <label>Phone number</label>
                     <input
-                      type="tel"
+                      type="number"
                       name="phone"
                       className="form-control shadow-none"
                       placeholder="Enter Your Mobile Number"
@@ -175,30 +197,11 @@ function TenantForm() {
                       onChange={(e) => handleChange(e)}
                     />
                   </div>
-                  <div className="form-group col-sm-6">
-                    <label>No of rooms</label>
-                    <input
-                      type="number"
-                      name="rooms"
-                      min={1}
-                      max={5}
-                      className="form-control shadow-none"
-                      placeholder="Enter Your Address"
-                      onChange={(e) => handleChange(e)}
-                    />
-                  </div>
-                  <div className="form-group select-group col-sm-6 justify-content-between">
-                    <label>Payment Method</label>
-                    <select name="paymentMethod" onChange={(e) => handleChange(e)}>
-                      <option value="Male">Transfer(Bank Account)</option>
-                      <option value="Female">Bank Card</option>
-                    </select>
-                  </div>
                   <div className="form-group col-sm-12">
-                    <label>Description</label>
+                    <label>About</label>
                     <textarea
                       type="text"
-                      name="description"
+                      name="about"
                       className="form-control shadow-none"
                       placeholder="Office,Villa,Apartment"
                       onChange={(e) => handleChange(e)}
@@ -207,7 +210,7 @@ function TenantForm() {
                       resize="vertical"
                     ></textarea>
                   </div>
-                  <div className="auth d-flex justify-content-between">
+                  <div className="auth d-flex justify-content-center">
                     {!isFetching ? (
                       <button
                         type="submit"
@@ -223,17 +226,11 @@ function TenantForm() {
                         <RoundLoader />
                       </button>
                     )}
-                    <Link
-                      to="/admin/register"
-                      className="btn btn-dashed btn-pill color-2"
-                    >
-                      Cancel
-                    </Link>
                   </div>
                 </form>
               </div>
             </div>
-          </div>
+          </div>)}
           <div className="col-lg-2 col-sm-1"></div>
         </div>
       </FormContainer>
@@ -322,7 +319,7 @@ const FormContainer = styled.div`
     }
     .auth {
       button {
-        background-image: var(--theme-gradient);
+        background-image: var(--theme-gradient1);
         border-radius: 30px;
         color: #ffffff;
         background-size: 200% auto;

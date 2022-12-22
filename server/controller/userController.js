@@ -2,7 +2,7 @@ const { Users } = require("../model/userModel");
 
 const singleUser = async (req, res) => {
   try {
-    const data = await Users.findById(req.user._id);
+    const data = await Users.findById(req.user.userId);
     return res.json({
       status: true,
       message: "user details available here",
@@ -18,12 +18,13 @@ const singleUser = async (req, res) => {
   }
 }
 
-const allUsers = async (req, res) => {
+const allAppUser = async (req, res) => {
   try {
+    
     const data = await Users.find();
     return res.json({
       status: true,
-      message: "users details available here",
+      message: "user details available here",
       data,
     });
 
@@ -35,6 +36,8 @@ const allUsers = async (req, res) => {
     });
   }
 }
+
+
 
 const updatePassword = async (req, res) => {
 
@@ -78,5 +81,5 @@ const updatePassword = async (req, res) => {
 module.exports = {
   updatePassword,
   singleUser,
-  allUsers
+  allAppUser
 };
