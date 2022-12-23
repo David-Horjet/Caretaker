@@ -9,7 +9,7 @@ const propertyRouter = express.Router()
 propertyRouter.get('/all', controller.getProperties)
 propertyRouter.post('/new', loginRequired, controller.addProperty)
 propertyRouter.get('/:id', controller.getProperty)
-propertyRouter.get('/allusers', controller.allAppUser)
+propertyRouter.get('/allu', controller.allAppUser)
 
 module.exports = {
     propertyRouter

@@ -179,7 +179,7 @@ const allAppUser = async (req, res) => {
   } catch (error) {
     return res.json({
       status: false,
-      message: `You've got some errors`,
+      message: `You've got some error`,
       error,
     });
   }

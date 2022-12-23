@@ -56,12 +56,33 @@ function TenantsApplication() {
                   <div className="title-3 mb-4 text-center">
                     <p>Applicant Form</p>
                   </div>
-                  <div className="row">
+                  <div className="row g-5">
                     <div className="col-sm-6">
                       <span>First name</span> : {tenant.firstName}
                     </div>
                     <div className="col-sm-6">
                       <span>Last name</span> : {tenant.firstName}
+                    </div>
+                    <div className="col-sm-6">
+                      <span>Email</span> : {tenant.email}
+                    </div>
+                    <div className="col-sm-6">
+                      <span>Gender</span> : {tenant.gender}
+                    </div>
+                    <div className="col-sm-6">
+                      <span>Address</span> : {tenant.address}
+                    </div>
+                    <div className="col-sm-6">
+                      <span>Phone No</span> : {tenant.phone}
+                    </div>
+                    <div className="col-sm-6">
+                      <span>Date of Application</span> : {new Date(tenant.createdAt).toDateString()}
+                    </div>
+                    <div className="col-sm-6">
+                      <span>Updated At</span> : {new Date(tenant.updatedAt).toDateString()}
+                    </div>
+                    <div className="col-sm-12">
+                      <span>About</span> : {tenant.about}
                     </div>
                   </div>
                 </div>
