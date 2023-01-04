@@ -8,6 +8,7 @@ import houseIcon from "../../assets/images/icons/1.svg";
 import StrokeLoader from "../Loaders/StrokeLoader";
 
 function DashProp({ totalProperties, loadingProperties }) {
+  console.log(totalProperties, loadingProperties)
   return (
     <Container className="card">
       <div className="card-body">

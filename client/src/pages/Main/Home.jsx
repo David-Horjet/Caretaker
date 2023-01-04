@@ -48,7 +48,11 @@ function Home() {
             "Seems you're offline, please connect to a stable network",
             toastOptions
           );
+          
+
         }
+        setIsLoading(false);
+        console.log(error)
       }
     }
     return () => {
