@@ -34,14 +34,20 @@ function Home() {
   });
 
   useEffect(() => {
+    console.log('step one')
     async function fetchProperties() {
+      console.log('step two')
       try {
+        
         const response = await Axios.get(allPropertyRoute);
+        console.log('step three',response)
         // console.log(response);
         if (response.data.status === true) {
           setProperties(response.data.data);
           setIsLoading(false);
+          console.log('step four')
         }
+        
       } catch (error) {
         if (error && error.message === "Network Error") {
           toast.error(
@@ -52,12 +58,13 @@ function Home() {
 
         }
         setIsLoading(false);
-        console.log(error)
+        console.log("failed",error)
       }
     }
-    return () => {
-      fetchProperties();
-    };
+    // return () => {
+    //   fetchProperties();
+    // };
+    fetchProperties();
   }, []);
 
   useEffect(() => {

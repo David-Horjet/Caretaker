@@ -8,7 +8,7 @@ function SkeletonLoader() {
   let skelotonRows = [];
   for (let index = 0; index < rowSkelotons; index++) {
     skelotonRows.push(
-      <li className="col-lg-4 col-sm-6 mb-4">
+      <li key={index} className="col-lg-4 col-sm-6 mb-4">
         <div className="skelt d-flex ustify-content-center align-items-center">
           <Skeleton width={300} height={150} />
           <Skeleton width={300} height={10} />
