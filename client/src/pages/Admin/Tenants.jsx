@@ -42,9 +42,10 @@ function Tenants({handleFullScreen, reportChange}) {
         }
       }
     }
-    return () => {
-      fetchProperty();
-    };
+    // return () => {
+    //   fetchProperty();
+    // };
+    fetchProperty();
   }, [id]);
   return (
     <>

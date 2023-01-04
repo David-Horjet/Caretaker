@@ -47,9 +47,10 @@ function TenantForm() {
         }
       }
     }
-    return () => {
-      fetchProperty();
-    };
+    // return () => {
+    //   fetchProperty();
+    // };
+    fetchProperty();
   }, [id]);
 
   const handleSubmit = async (event) => {

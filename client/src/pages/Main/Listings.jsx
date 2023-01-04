@@ -36,9 +36,10 @@ function Listings() {
         }
       }
     }
-    return () => {
-      fetchProperties();
-    };
+    // return () => {
+    //   fetchProperties();
+    // };
+    fetchProperties();
   }, []);
   return (
     <>

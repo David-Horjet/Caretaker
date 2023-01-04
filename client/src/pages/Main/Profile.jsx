@@ -39,9 +39,10 @@ function Profile() {
         );
       }
     }
-    return () => {
-      fetchUser();
-    };
+    // return () => {
+    //   fetchUser();
+    // };
+    fetchUser();
   }, []);
   return (
     <>

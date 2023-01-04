@@ -20,9 +20,10 @@ function AdminDashboard({FullScreen, handleFullScreen, reportChange}) {
       }
     }
   
-    return () => {
-      fetchEmployees()
-    }
+    // return () => {
+    //   fetchEmployees()
+    // }
+    fetchEmployees()
   }, [])
 
   useEffect(() => {

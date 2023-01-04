@@ -36,9 +36,10 @@ function PropertyDetails() {
         }
       }
     }
-    return () => {
-     fetchProperty();
-    };
+    // return () => {
+    //  fetchProperty();
+    // };
+    fetchProperty();
   }, []);
   return (
     <>

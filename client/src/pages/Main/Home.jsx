@@ -34,18 +34,14 @@ function Home() {
   });
 
   useEffect(() => {
-    console.log('step one')
     async function fetchProperties() {
-      console.log('step two')
       try {
         
         const response = await Axios.get(allPropertyRoute);
-        console.log('step three',response)
         // console.log(response);
         if (response.data.status === true) {
           setProperties(response.data.data);
           setIsLoading(false);
-          console.log('step four')
         }
         
       } catch (error) {
@@ -58,7 +54,6 @@ function Home() {
 
         }
         setIsLoading(false);
-        console.log("failed",error)
       }
     }
     // return () => {
@@ -86,9 +81,11 @@ function Home() {
         }
       }
     }
-    return () => {
-      getUsers();
-    };
+    // return () => {
+    //   getUsers();
+    // };
+    getUsers();
+
   }, []);
 
   return (

@@ -22,9 +22,10 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
         setProperties(response.data.data)
       }
     }
-    return () => {
-      fetchEmployees()
-    }
+    // return () => {
+    //   fetchEmployees()
+    // }
+    fetchEmployees()
   }, [])
   
 

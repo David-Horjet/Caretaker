@@ -37,9 +37,10 @@ function Agents() {
         }
       }
     }
-    return () => {
-      getUsers();
-    };
+    // return () => {
+    //   getUsers();
+    // };
+    getUsers();
   }, []);
   return (
     <>

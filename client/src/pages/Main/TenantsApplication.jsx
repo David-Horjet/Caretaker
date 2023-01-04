@@ -35,9 +35,10 @@ function TenantsApplication() {
         }
       }
     }
-    return () => {
-      fetchTenant();
-    };
+    // return () => {
+    //   fetchTenant();
+    // };
+    fetchTenant();
   }, [id]);
   return (
     <>

@@ -38,9 +38,10 @@ function SingleProperty({ FullScreen, handleFullScreen, reportChange }) {
         }
       }
     }
-    return () => {
-      fetchProperty();
-    };
+    // return () => {
+    //   fetchProperty();
+    // };
+    fetchProperty();
   }, [id]);
 
   return (
