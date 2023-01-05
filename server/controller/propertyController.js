@@ -1,5 +1,8 @@
 const { Property } = require("../model/propertyModel");
 const { Users } = require("../model/userModel");
+const { upload } = require("../middlewares/images");
+
+const fileUpload = upload.single("image");
 
 const getProperties = async (req, res) => {
   try {
@@ -22,11 +25,13 @@ const getProperties = async (req, res) => {
 
 const getPropertiesByCaretaker = async (req, res) => {
   try {
-    const userId = req.user.userId
+    const userId = req.user.userId;
     // const caretakerId = caretaker._id
-    const data = await Property.findById({caretaker : userId}).populate("caretaker").sort({
-      createdAt: -1,
-    });
+    const data = await Property.findById({ caretaker: userId })
+      .populate("caretaker")
+      .sort({
+        createdAt: -1,
+      });
     return res.json({
       status: true,
       message: "Properties Listed Successful",
@@ -70,13 +75,22 @@ const getProperty = async (req, res) => {
 
 const addProperty = async (req, res) => {
   try {
-    const body = req.body;
-    req.body.caretaker = req.user.userId;
-    const data = await Property.create(body);
-    return res.json({
-      status: true,
-      message: "Property added successfully",
-      data,
+    fileUpload(req, res, async (err) => {
+      if (err) {
+        res.json({
+          status: false,
+          message: "You've got some errors",
+          err,
+        });
+      }
+      const body = req.body;
+      req.body.caretaker = req.user.userId;
+      const data = await Property.create(body);
+      return res.json({
+        status: true,
+        message: "Property added successfully",
+        data,
+      });
     });
   } catch (error) {
     return res.json({
@@ -175,7 +189,6 @@ const allAppUser = async (req, res) => {
       message: "user details available here",
       data,
     });
-
   } catch (error) {
     return res.json({
       status: false,
@@ -183,11 +196,11 @@ const allAppUser = async (req, res) => {
       error,
     });
   }
-}
+};
 
 module.exports = {
   getProperties,
   addProperty,
   getProperty,
-  allAppUser
+  allAppUser,
 };
