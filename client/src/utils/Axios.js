@@ -11,6 +11,14 @@ export const authAxios = axios.create({
   }
 });
 
+export const authAxiosFile = axios.create({
+  baseURL: host,
+  headers: {
+    'authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json'
+  }
+});
+
 export const Axios = axios.create({
   baseURL: host,
   headers: {

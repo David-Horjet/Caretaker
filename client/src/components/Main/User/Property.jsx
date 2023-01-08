@@ -16,7 +16,7 @@ function Property({ data }) {
       await navigator.clipboard.writeText(`${clientHost}/tenantform/${data._id}`);
       toast.success("Property Link successfully copied", toastOptions);
     } catch (err) {
-      toast.error("An error occured copying property link", toastOptions);
+      toast.error("An error occured copying property link", toastOptions); 
     }
   };
   return (

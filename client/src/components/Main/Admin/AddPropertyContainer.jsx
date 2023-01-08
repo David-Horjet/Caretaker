@@ -1,14 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaCloudUploadAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function AddPropertyContainer({
   handleChange,
+  handleFileChange,
+  handleClick,
   handleSubmit,
   isFetching,
   RoundLoader,
+  inputRef, 
+  image
 }) {
+
   return (
     <Container className="col-lg-3">
       <div className="container-fluid">
@@ -48,16 +53,16 @@ function AddPropertyContainer({
                   onSubmit={(event) => handleSubmit(event)}
                   autoComplete="off"
                 >
-                <div className="form-group col-lg-4">
-                  <label>Title</label>
-                  <input
-                    type="text"
-                    name="title"
-                    className="form-control shadow-none"
-                    placeholder="Merrick in Spring Way"
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
+                  <div className="form-group col-lg-4">
+                    <label>Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      className="form-control shadow-none"
+                      placeholder="Merrick in Spring Way"
+                      onChange={(e) => handleChange(e)}
+                    />
+                  </div>
                   <div className="form-group col-lg-4 select-group justify-content-between">
                     <label>Property Type</label>
                     <select name="type" onChange={(e) => handleChange(e)}>
@@ -100,13 +105,26 @@ function AddPropertyContainer({
                   <div className="form-group col-lg-4 select-group justify-content-between">
                     <label>Beds</label>
                     <select name="bed" onChange={(e) => handleChange(e)}>
-                    <option value={1} >1</option>
+                      <option value={1} >1</option>
                       <option value={2}>2</option>
                       <option value={3}>3</option>
                       <option value={4}>4</option>
                       <option value={5}>5</option>
                       <option value={6}>6</option>
                     </select>
+                  </div>
+                  <div className="form-group col-sm-12">
+                    <label>Description</label>
+                    <textarea
+                      type="text"
+                      name="description"
+                      className="form-control shadow-none"
+                      placeholder="Office,Villa,Apartment"
+                      onChange={(e) => handleChange(e)}
+                      cols="20"
+                      rows="10"
+                      resize="vertical"
+                    ></textarea>
                   </div>
                   <div className="form-group col-lg-4">
                     <label>Country</label>
@@ -138,38 +156,32 @@ function AddPropertyContainer({
                       onChange={(e) => handleChange(e)}
                     />
                   </div>
-                  <div className="form-group col-sm-12">
-                    <label>Description</label>
-                    <textarea
-                      type="text"
-                      name="description"
-                      className="form-control shadow-none"
-                      placeholder="Office,Villa,Apartment"
-                      onChange={(e) => handleChange(e)}
-                      cols="30"
-                      rows="10"
-                      resize="vertical"
-                    ></textarea>
-                  </div>
-                  <div className="form-group col-lg-6">
+                  <div className="form-group col-lg-12">
                     <label>Image (*JPEG*, *PNG*, *JPG*)</label>
-                    <input
-                      type="text"
-                      name="image"
-                      className="form-control shadow-none"
-                      placeholder="Image Link"
-                      onChange={(e) => handleChange(e)}
-                    />
-                  </div>
-                  <div className="form-group col-lg-6">
-                    <label>Video (mp4)</label>
-                    <input
-                      type="text"
-                      name="video"
-                      className="form-control shadow-none"
-                      placeholder="Video Link"
-                      onChange={(e) => handleChange(e)}
-                    />
+                    {image.preview ? (
+                      <div
+                        onClick={handleClick}
+                        className="preview d-flex"
+                      >
+                        <img
+                          src={image.preview}
+                          className="w-100"
+                          alt="property-img"
+                        />
+                      </div>)
+                      : (<div className="dropzone"
+                        onClick={handleClick}>
+                        <div className="icon"><i><FaCloudUploadAlt /></i></div>
+                        <h6>Drag & Drop file here or click to upload</h6>
+                        <input
+                          style={{ display: "none" }}
+                          ref={inputRef}
+                          type="file"
+                          name="image"
+                          onChange={handleFileChange}
+                          className="form-control shadow-none"
+                        />
+                      </div>)}
                   </div>
                   <div className="auth d-flex justify-content-between">
                     {!isFetching ? (
@@ -281,6 +293,33 @@ const Container = styled.div`
         font-weight: 600;
         margin-bottom: 5px;
       }
+      .dropzone {
+    margin-right: auto;
+    margin-left: auto;
+    padding: 30px;
+    border: 2px dashed #eee;
+    border-radius: 15px;
+    -o-border-image: none;
+    border-image: none;
+    background: rgba(149, 149, 149, 0.05);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-height: 150px;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+    i {
+    font-size: 50px;
+    color: #eee;
+} 
+.preview img {
+height: 70px !important;
+}
+h6 {
+  color: #959595;
+    font-weight: 400;
+}
+}
       .form-control {
         border-color: #dee2e6;
         padding: 9px 20px 6px;

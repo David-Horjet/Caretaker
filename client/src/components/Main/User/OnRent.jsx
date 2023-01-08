@@ -1,15 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
 import Property from "./Property";
 import SkeletonLoader from "../../Loaders/SkeletonLoader";
+import { allPropertyRoute } from "../../../utils/APIRoutes";
+import { Axios } from "../../../utils/Axios";
+import {toastOptions} from "../../../utils/Toast"
 
-function OnRent({ properties, isLoading }) {
+function OnRent({
+  //  properties, 
+  //  isLoading 
+  }) {
+  const [properties, setProperties] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   const newPropertiesArray = properties.filter(function (e) {
     return e.status === "Rent";
   });
 
   const PropertiesData = newPropertiesArray.splice(0, 9);
   // console.log(PropertiesData);
+
+  useEffect(() => {
+    async function fetchProperties() {
+      try {
+        const response = await Axios.get(allPropertyRoute);
+        // console.log(response);
+        if (response.data.status === true) {
+          setProperties(response.data.data);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        if (error && error.message === "Network Error") {
+          toast.error(
+            "Seems you're offline, please connect to a stable network",
+            toastOptions
+          );
+        }
+      }
+    }
+    return () => {
+      fetchProperties();
+    };
+  }, []);
 
   return (
     <Container className="bg-light">

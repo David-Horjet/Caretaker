@@ -7,8 +7,8 @@ import { TbBuildingWarehouse } from "react-icons/tb";
 import houseIcon from "../../assets/images/icons/1.svg";
 import StrokeLoader from "../Loaders/StrokeLoader";
 
-function DashProp({ totalProperties, loadingProperties }) {
-  console.log(totalProperties, loadingProperties)
+function DashProp({ totalProperties, loadingProperties, tenants, isLoading }) {
+  console.log(totalProperties, loadingProperties, tenants, isLoading)
   return (
     <Container className="card">
       <div className="card-body">
@@ -46,23 +46,41 @@ function DashProp({ totalProperties, loadingProperties }) {
           <li>
             <BiBuildingHouse />
             <div>
-              <h5>1500</h5>
+            {loadingProperties ? (
+              <h5 className="mb-0">{totalProperties}</h5>
+            ) : (
+              <h5 className="mb-0">
+                <StrokeLoader />
+              </h5>
+            )}
               <span className="light-font">Properties</span>
             </div>
           </li>
           <li>
             <FaLaptopHouse />
-            <div>
-              <h5>380</h5>
-              <span className="light-font">Rented</span>
-            </div>
+                <div>
+            {
+              isLoading ? (
+                <StrokeLoader />
+              ) : (
+                  <h5>{tenants}</h5>
+                  )
+                }
+                  <span className="light-font">Tenants</span>
+                </div>
           </li>
           <li>
             <TbBuildingWarehouse />
-            <div>
-              <h5>240</h5>
-              <span className="light-font">Unlisted</span>
-            </div>
+                <div>
+            {
+              isLoading ? (
+                <StrokeLoader />
+              ) : (
+                  <h5>{totalProperties - tenants}</h5>
+                  )
+                }
+                  <span className="light-font">Available</span>
+                </div>
           </li>
         </ul>
       </div>

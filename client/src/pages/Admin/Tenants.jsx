@@ -21,7 +21,7 @@ function Tenants({handleFullScreen, reportChange}) {
   });
 
   useEffect(() => {
-    async function fetchProperty() {
+    async function fetchTenants() {
       try {
         const response = await Axios.get(`${getTenantsRoute}`);
         // console.log(response);
@@ -45,8 +45,9 @@ function Tenants({handleFullScreen, reportChange}) {
     // return () => {
     //   fetchProperty();
     // };
-    fetchProperty();
+    fetchTenants();
   }, [id]);
+  
   return (
     <>
       <FullScreen handle={handleFullScreen} onChange={reportChange}>

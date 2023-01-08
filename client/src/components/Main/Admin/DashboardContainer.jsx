@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaHome } from "react-icons/fa";
 import DashProp from "../../Widgets/DashProp";
 import DashInvoice from "../../Widgets/DashInvoice";
-function DashboardContainer({totalProperties, loadingProperties}) {
+function DashboardContainer({totalProperties, loadingProperties, tenants, isLoading}) {
   return (
     <Container className="bg-light col-lg-3">
       <div className="container-fluid">
@@ -33,7 +33,7 @@ function DashboardContainer({totalProperties, loadingProperties}) {
       <div className="container-fluid">
         <div className="row gx-3">
           <div className="col-lg-6 col-md-6">
-            <DashProp totalProperties={totalProperties} loadingProperties={loadingProperties}/>
+            <DashProp totalProperties={totalProperties} loadingProperties={loadingProperties} tenants={tenants} isLoading={isLoading}/>
           </div>
           <div className="col-lg-6 col-md-6">
             <DashInvoice/>

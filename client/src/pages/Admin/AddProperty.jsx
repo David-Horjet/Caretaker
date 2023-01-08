@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import AddPropertyContainer from "../../components/Main/Admin/AddPropertyContainer";
 import SideNav from "../../components/Main/Admin/SideNav";
@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { addPropertyRoute } from "../../utils/APIRoutes";
 import RoundLoader from "../../components/Loaders/RoundLoader";
 import toastOptions from "../../components/Toast/ToastOptions";
-import { authAxios } from "../../utils/Axios";
+import { authAxiosFile } from "../../utils/Axios";
 
 function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
   const [values, setValues] = useState({
@@ -20,12 +20,25 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
     bed: 1,
     country: "",
     city: "",
-    addresponses: "",
+    address: "",
     description: "",
-    image: "",
-    video: "",
   });
-  const [isFetching, setIsFetching] = useState(false)
+  const [isFetching, setIsFetching] = useState(false);
+  
+  const [image, setImage] = useState({ preview: "", data: "" });
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    inputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const img = {
+      preview: URL.createObjectURL(e.target.files[0]),
+      data: e.target.files[0],
+    };
+    setImage(img);
+  };
 
   useEffect(() => {
     document.title = "Add Property - CareTaker Admin";
@@ -36,8 +49,11 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
     try {
       if (handleValidation()) {
         setIsFetching(true)
-        const response = await authAxios.post(addPropertyRoute, values);
-        console.log(response);
+        let formData = new FormData();
+        formData.append("image", image.data);
+        formData.append(values, values)
+        console.log(formData);
+        const response = await authAxiosFile.post(addPropertyRoute, formData);
         if (response.data.status === false) {
           toast.error(response.data.message, toastOptions);
           setIsFetching(false)
@@ -54,7 +70,7 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
   };
 
   const handleValidation = () => {
-    const { title, type, status, price, room, bed, country, city, address, description, image, video } =
+    const { title, type, status, price, room, bed, country, city, address, description } =
       values;
     if (title === "") {
       toast.error("Title is required", toastOptions);
@@ -96,14 +112,6 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
       toast.error("Description is required", toastOptions);
       
       return false;
-    } else if (image === "") {
-      toast.error("Image is required", toastOptions);
-      
-      return false;
-    } else if (video === "") {
-      toast.error("Video is required", toastOptions);
-      
-      return false;
     }
     return true;
   };
@@ -121,9 +129,13 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
             <SideNav />
             <AddPropertyContainer
               handleChange={handleChange}
+              handleClick={handleClick}
+              handleFileChange={handleFileChange}
               handleSubmit={handleSubmit}
               isFetching={isFetching}
               RoundLoader={RoundLoader}
+              image={image}
+              inputRef={inputRef}
             />
           </main>
         </Container>
