@@ -180,6 +180,7 @@ function AddPropertyContainer({
                           name="image"
                           onChange={handleFileChange}
                           className="form-control shadow-none"
+                          accept="image/*"
                         />
                       </div>)}
                   </div>
