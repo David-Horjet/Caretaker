@@ -5,13 +5,12 @@ let allowedTypes = [
   "image/jpg",
   "image/gif",
   "image/png",
-  "video/mp4",
-  "video/mvk",
+
 ];
 
 const upload = multer({
-  strorage: multer.diskStorage({
-    destination: "../UploadedFiles",
+  storage: multer.diskStorage({
+    destination: "../public/uploads",
     filename: (req, file, cb) => {
       let name = Date.now().toString() + "newName_" + file.originalname;
       cb(null, name);

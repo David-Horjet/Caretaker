@@ -2,7 +2,7 @@ const { Property } = require("../model/propertyModel");
 const { Users } = require("../model/userModel");
 const { upload } = require("../middlewares/images");
 
-const fileUpload = upload.single("image");
+const storage = upload.single("image");
 
 const getProperties = async (req, res) => {
   try {
@@ -75,7 +75,7 @@ const getProperty = async (req, res) => {
 
 const addProperty = async (req, res) => {
   try {
-    fileUpload(req, res, async (err) => {
+    storage(req, res, async (err) => {
       if (err) {
         res.json({
           status: false,
@@ -84,6 +84,8 @@ const addProperty = async (req, res) => {
         });
       }
       const body = req.body;
+      body.image = req.file.path
+      image = body.image
       req.body.caretaker = req.user.userId;
       const data = await Property.create(body);
       return res.json({
