@@ -87,7 +87,7 @@ const addProperty = async (req, res) => {
       body.image = req.file.path
       image = body.image
       req.body.caretaker = req.user.userId;
-      const data = await Property.create(body);
+      const data = await Property.create(body,{image:image});
       return res.json({
         status: true,
         message: "Property added successfully",
