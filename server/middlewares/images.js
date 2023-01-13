@@ -11,9 +11,8 @@ let allowedTypes = [
 const upload = multer({
   storage: multer.diskStorage({
     destination: "../public/uploads",
-    filename: (req, file, cb) => {
-      let name = Date.now().toString() + "newName_" + file.originalname;
-      cb(null, name);
+    filename: (req, cb) => {
+      cb(null, req.body.fileName);
     },
   }),
   limits: {

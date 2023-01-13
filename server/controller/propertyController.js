@@ -75,51 +75,48 @@ const getProperty = async (req, res) => {
 
 const addProperty = async (req, res) => {
   try {
-    storage(req, res, async (err) => {
-      if (err) {
-        res.json({
-          status: false,
-          message: "You've got some errors",
-          err,
-        });
-      }
-      const body = req.body;
-      body.image = req.file.path
-      image = body.image
-      req.body.caretaker = req.user.userId;
-      const data = await Property.create(body,{image:image});
-      return res.json({
-        status: true,
-        message: "Property added successfully",
-        data,
-      });
-    });
-  } catch (error) {
+    const body = req.body;
+    req.body.caretaker = req.user.userId;
+    const data = await Property.create(body);
     return res.json({
-      status: false,
-      message: "You've got some errors",
-      error,
-    });
-  }
+      status: true,
+      message: "Property added successfully",
+      data,  });
+    } catch (error) {
+      return res.json({
+        status: false,
+        message: `You've got some error`,
+        error,
+      });
+    }
 };
 
-const getListedPropstoUpdate = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const editProps = await Property.findById(id);
-    return res.status(201).json({
+const uploadFile = storage(
+  (req, res) => {
+    res.status(200).json({
       status: true,
-      message: "Property gotten Successful",
-      editProps,
-    });
-  } catch (error) {
-    return res.status(400).json({
-      status: false,
-      message: `You've got some errors - ${error}`,
-      error: "An error occured while signing",
-    });
+        message: "Property image uploaded successfully",
+    })
   }
-};
+)
+
+// const getListedPropstoUpdate = async (req, res) => 
+//   try {
+//     const id = req.params.id;
+//     const editProps = await Property.findById(id);
+//     return res.status(201).json({
+//       status: true,
+//       message: "Property gotten Successful",
+//       editProps,
+//     });
+//   } catch (error) {
+//     return res.status(400).json({
+//       status: false,
+//       message: `You've got some errors - ${error}`,
+//       error: "An error occured while signing",
+//     });
+//   }
+// };
 
 const updateListedProp = async (req, res) => {
   try {
@@ -203,6 +200,7 @@ const allAppUser = async (req, res) => {
 module.exports = {
   getProperties,
   addProperty,
+  uploadFile,
   getProperty,
   allAppUser,
 };

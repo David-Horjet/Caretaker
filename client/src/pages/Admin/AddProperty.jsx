@@ -44,16 +44,23 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
     document.title = "Add Property - CareTaker Admin";
   });
 
+  if(image) {
+    console.log(image.data.name)
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       if (handleValidation()) {
         setIsFetching(true)
-        let formData = new FormData();
-        formData.append("image", image.data);
-        formData.append(values, values)
-        console.log(formData);
-        const response = await authAxiosFile.post(addPropertyRoute, formData);
+        if(image) {
+          let formData = new FormData();
+          const fileName = Date.now() + image.data.name
+          formData.append("image", image.data);
+          formData.append("fileName", fileName);
+          await authAxiosFile.post(addPropertyRoute, formData);
+        }
+        const response = await authAxiosFile.post(addPropertyRoute, values);
         if (response.data.status === false) {
           toast.error(response.data.message, toastOptions);
           setIsFetching(false)
