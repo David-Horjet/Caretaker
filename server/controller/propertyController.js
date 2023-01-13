@@ -81,24 +81,29 @@ const addProperty = async (req, res) => {
     return res.json({
       status: true,
       message: "Property added successfully",
-      data,  });
-    } catch (error) {
-      return res.json({
-        status: false,
-        message: `You've got some error`,
-        error,
-      });
-    }
+      data,
+    });
+  } catch (error) {
+    return res.json({
+      status: false,
+      message: `You've got some error`,
+      error,
+    });
+  }
 };
 
 const uploadFile = storage(
-  (req, res) => {
+  (req, res, function (err) {
+    if (err) {
+      console.log("There was an error uploading the image.");
+    }
+
     res.status(200).json({
       status: true,
-        message: "Property image uploaded successfully",
+      message: "Property image uploaded successfully",
     })
-  }
-)
+  })
+  )
 
 // const getListedPropstoUpdate = async (req, res) => 
 //   try {
