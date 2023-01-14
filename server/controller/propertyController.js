@@ -92,18 +92,20 @@ const addProperty = async (req, res) => {
   }
 };
 
-const uploadFile = storage(
-  (req, res, function (err) {
+const uploadFile = async (req, res, next) => {
+  storage(req, res, async (err) => {
     if (err) {
-      console.log("There was an error uploading the image.");
+      return res.json({
+        status: "false",
+        msg: error.message
+      })
     }
-
     res.status(200).json({
       status: true,
       message: "Property image uploaded successfully",
     })
   })
-  )
+}
 
 // const getListedPropstoUpdate = async (req, res) => 
 //   try {

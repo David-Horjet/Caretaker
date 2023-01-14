@@ -5,10 +5,10 @@ import SideNav from "../../components/Main/Admin/SideNav";
 import TopNav from "../../components/Main/Admin/TopNav";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { addPropertyRoute } from "../../utils/APIRoutes";
+import { addPropertyRoute, uploadRoute } from "../../utils/APIRoutes";
 import RoundLoader from "../../components/Loaders/RoundLoader";
 import toastOptions from "../../components/Toast/ToastOptions";
-import { authAxiosFile } from "../../utils/Axios";
+import { authAxiosFile, authAxios } from "../../utils/Axios";
 
 function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
   const [values, setValues] = useState({
@@ -44,10 +44,6 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
     document.title = "Add Property - CareTaker Admin";
   });
 
-  if(image) {
-    console.log(image.data.name)
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -56,11 +52,12 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
         if(image) {
           let formData = new FormData();
           const fileName = Date.now() + image.data.name
+          console.log(fileName)
           formData.append("image", image.data);
           formData.append("fileName", fileName);
-          await authAxiosFile.post(addPropertyRoute, formData);
+          await authAxiosFile.post(uploadRoute, formData);
         }
-        const response = await authAxiosFile.post(addPropertyRoute, values);
+        const response = await authAxios.post(addPropertyRoute, values);
         if (response.data.status === false) {
           toast.error(response.data.message, toastOptions);
           setIsFetching(false)
