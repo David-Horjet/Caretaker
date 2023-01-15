@@ -15,7 +15,7 @@ export const authAxiosFile = axios.create({
   baseURL: host,
   headers: {
     'authorization': `Bearer ${accessToken}`,
-    'Content-Type': 'application/json'
+    "content-type": "multipart/form-data",
   }
 });
 

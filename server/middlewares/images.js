@@ -10,13 +10,14 @@ let allowedTypes = [
 
 const upload = multer({
   storage: multer.diskStorage({
-    destination: "../public/uploads",
-    filename: (req, cb) => {
-      cb(null, req.body.fileName);
+    destination: "./public/uploads",
+    filename: function (req, file, cb) {
+      console.log(JSON.parse(JSON.stringify(req.body)));
+      cb(null, req.body.imageName);
     },
   }),
   limits: {
-    fileSizes: 5 * 1024 * 1024,
+    fileSize: 5 * 1024 * 1024,
   },
   fileFilter: (req, file, cb) => {
     if (!allowedTypes.includes(file.mimetype)) {

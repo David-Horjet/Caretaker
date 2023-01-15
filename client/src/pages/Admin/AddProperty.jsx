@@ -51,11 +51,16 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
         setIsFetching(true)
         if(image) {
           let formData = new FormData();
-          const fileName = Date.now() + image.data.name
+          const fileName = image.data.name
           console.log(fileName)
+          formData.append("imageName", fileName);
           formData.append("image", image.data);
-          formData.append("fileName", fileName);
-          await authAxiosFile.post(uploadRoute, formData);
+          values.image = fileName;
+          try {
+            await authAxiosFile.post(uploadRoute, formData);
+          } catch (error) {
+            toast.error("Image upload failed", toastOptions);
+          }
         }
         const response = await authAxios.post(addPropertyRoute, values);
         if (response.data.status === false) {
