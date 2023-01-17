@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { FaBath, FaRulerCombined } from "react-icons/fa";
 import { toastOptions } from "../../../utils/Toast";
-import { clientHost } from "../../../utils/APIRoutes";
+import { clientHost, host, filesUploadRoute } from "../../../utils/APIRoutes";
 
 function Property({ data }) {
   const copyPropertyLink = async () => {
@@ -24,7 +24,7 @@ function Property({ data }) {
       <Container className="col-lg-4 col-sm-6 mb-4">
         <div className="property-box">
           <div className="property-image">
-            <img className="w-100 h-100" src={data.image} alt="propertyImage" />
+            <img className="w-100 h-100" src={host + filesUploadRoute + data.image} alt="propertyImage" />
             <div className="status">
               <span>{data.status}</span>
             </div>

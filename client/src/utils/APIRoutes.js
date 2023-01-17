@@ -9,6 +9,7 @@ export const usersRoute = "/api/auth/all";
 export const allPropertyRoute = "/api/property/all";
 export const addPropertyRoute = "/api/property/new";
 export const uploadRoute = "/api/property/upload";
+export const filesUploadRoute = "/public/uploads/";
 export const singlePropertyRoute = "/api/property";
 export const addTenantRoute = "/api/tenant/new";
 export const getTenantsRoute = "/api/tenant/all";

@@ -51,8 +51,8 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
         setIsFetching(true)
         if(image) {
           let formData = new FormData();
-          const fileName = image.data.name
-          console.log(fileName)
+          const fileName = Date.now() + image.data.name
+          // console.log(fileName)
           formData.append("imageName", fileName);
           formData.append("image", image.data);
           values.image = fileName;
