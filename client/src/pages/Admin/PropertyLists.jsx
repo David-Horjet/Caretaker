@@ -13,6 +13,21 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
   const [properties, setProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [filteredList, setFilteredList] = new useState(properties);
+
+  const filterBySearch = (event) => {
+    // Access input value
+    const query = event.target.value;
+    // Create copy of item list
+    var updatedList = [...properties];
+    // Include all elements which includes the search query
+    updatedList = updatedList.filter((item) => {
+      return item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    });
+    // Trigger render with updated values
+    setFilteredList(updatedList);
+  };
+
   useEffect(() => {
     async function fetchEmployees() {
       const response = await authAxios.get(allPropertyRoute);
@@ -37,10 +52,10 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
     <>
     <FullScreen handle={handleFullScreen} onChange={reportChange}>
     <Container>
-      <TopNav handleFullScreen={handleFullScreen} />
+      <TopNav handleFullScreen={handleFullScreen} filterBySearch={filterBySearch} />
       <main className="main row">
         <SideNav />
-        <PropertyListsContainer properties={properties} isLoading={isLoading}/>
+        <PropertyListsContainer properties={filteredList} isLoading={isLoading}/>
       </main>
     </Container>
     <ToastContainer/>

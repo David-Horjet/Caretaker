@@ -7,7 +7,7 @@ import { FiFileText } from "react-icons/fi";
 import { BiFullscreen } from "react-icons/bi";
 import { Context } from "../../../context/Context";
 
-function TopNav({ handleFullScreen }) {
+function TopNav({ handleFullScreen, filterBySearch }) {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(Context);
   const [profileActive, setProfileActive] = useState(false);
@@ -18,10 +18,16 @@ function TopNav({ handleFullScreen }) {
   const handleProfile = () => {
     setProfileActive(!profileActive);
   };
+
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
     navigate("/admin/login");
   };
+
+  const handleSearchWarning = () => {
+    alert("Please navigate to your listings to search property...")
+  }
+
   return (
     <Container id="header" className="header fixed-top align-items-center py-3">
       <div className="row container-fluid">
@@ -36,11 +42,23 @@ function TopNav({ handleFullScreen }) {
           >
             <GoSearch />
             <div className="form-group">
-              <input
-                type="text"
-                className="form-control shadow-none"
-                placeholder="Search here..."
-              />
+              {
+                filterBySearch ? (
+                  <input
+                    type="text"
+                    className="form-control shadow-none"
+                    placeholder="Search here..."
+                    onChange={filterBySearch}
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    className="form-control shadow-none"
+                    placeholder="Search here..."
+                    onClick={handleSearchWarning}
+                  />
+                )
+              }
             </div>
           </form>
         </div>
