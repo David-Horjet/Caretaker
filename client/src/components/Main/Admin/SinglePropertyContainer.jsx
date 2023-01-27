@@ -156,6 +156,12 @@ const Container = styled.div`
   left: auto;
   height: calc(100vh - 77px);
   overflow: auto;
+  @media (max-width: 992px) {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 76px;
+  }
   .page-header {
     padding: 30px 0;
     h3 {

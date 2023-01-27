@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { SiHomeadvisor } from "react-icons/si";
 import { MdOutlineDashboard } from "react-icons/md";
-import { BiBuildingHouse } from "react-icons/bi";
+import { BiBuilding, BiBuildingHouse } from "react-icons/bi";
 import { BsList, BsPeople } from "react-icons/bs";
 import { NavLink, Link } from "react-router-dom";
 
@@ -30,7 +30,7 @@ function SideNav() {
             </li>
             <li className="sidebar-item">
               <NavLink to="/admin/property/new" className="sidebar-link">
-                <BiBuildingHouse />
+                <BiBuilding />
                 <span>Add Property</span> 
                 <div className="according-menu">
                   <i className="fa fa-angle-right"></i>
@@ -39,7 +39,7 @@ function SideNav() {
             </li>
             <li className="sidebar-item">
               <NavLink to="/admin/property/all" className="sidebar-link">
-                <BsPeople />
+              <BiBuildingHouse />
                 <span>Property Lists</span>
                 <div className="according-menu">
                   <i className="fa fa-angle-right"></i>
@@ -90,10 +90,56 @@ const Container = styled.div`
       justify-content: space-between;
       align-items: center;
       .toggle-btn {
-        width: auto;
-        display: block !important;
+        /* width: auto; */
+        /* display: block !important; */
       }
       .sidebar-menu {
+        overflow: hidden;
+        height: 100%;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        li {
+          margin-bottom: 0;
+          a {
+            padding: 5px 10px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    #mainsidebar {
+      .sidebar-menu {
+        li {
+          a {
+            span {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 560px) {
+    .logo {
+      span {
+        font-size: 16px !important;
+        font-weight: 500 !important;
+      }
+    }
+    #mainsidebar {
+      .sidebar-menu {
+        gap: 0px;
+      }
+    }
+  }
+
+  @media (max-width: 340px) {
+    .logo {
+      span {
         display: none;
       }
     }

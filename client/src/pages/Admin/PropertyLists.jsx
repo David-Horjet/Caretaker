@@ -7,13 +7,16 @@ import "react-toastify/dist/ReactToastify.css";
 import PropertyListsContainer from "../../components/Main/Admin/PropertyListsContainer";
 import { authAxios } from "../../utils/Axios";
 import { allPropertyRoute } from "../../utils/APIRoutes";
+// import { PropertiesData } from "../../components/DummyDatas/Properties";
 
 function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
 
   const [properties, setProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [filteredList, setFilteredList] = new useState(properties);
+  const [filteredList, setFilteredList] = useState(properties);
+
+  // console.log(filteredList);
 
   const filterBySearch = (event) => {
     // Access input value
@@ -29,18 +32,15 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
   };
 
   useEffect(() => {
-    async function fetchEmployees() {
+    async function fetchProperties() {
       const response = await authAxios.get(allPropertyRoute);
-      console.log(response);
+      // console.log(response);
       if (response.data.status === true) {
         setIsLoading(false)
         setProperties(response.data.data)
       }
     }
-    // return () => {
-    //   fetchEmployees()
-    // }
-    fetchEmployees()
+    fetchProperties()
   }, [])
   
 

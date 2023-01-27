@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import styled from "styled-components";
-import Agents from "../../components/Main/User/Agents";
+// import Agents from "../../components/Main/User/Agents";
 // import Featured from "../../components/Main/User/Featured";
 import Footer from "../../components/Main/User/Footer";
 import Header from "../../components/Main/User/Header";
@@ -11,15 +11,18 @@ import Offer from "../../components/Main/User/Offer";
 import OnRent from "../../components/Main/User/OnRent";
 // import Trusted from "../../components/Main/User/Trusted";
 import { Context } from "../../context/Context";
-import { allPropertyRoute, usersRoute } from "../../utils/APIRoutes";
+import { 
+  allPropertyRoute, 
+  // usersRoute 
+} from "../../utils/APIRoutes";
 import { Axios } from "../../utils/Axios";
 import { toastOptions } from "../../utils/Toast";
 
 function Home() {
   const [properties, setProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState([]);
-  const [isUsersLoading, setIsUsersLoading] = useState(true);
+  // const [users, setUsers] = useState([]);
+  // const [isUsersLoading, setIsUsersLoading] = useState(true);
 
   const navigate = useNavigate();
   const { user, dispatch } = useContext(Context);
@@ -62,31 +65,31 @@ function Home() {
     fetchProperties();
   }, []);
 
-  useEffect(() => {
-    async function getUsers() {
-      try {
-        const response = await Axios.get(usersRoute);
-        console.log(response);
-        if (response.data.status === true) {
-          setUsers(response.data.data);
-          setIsUsersLoading(false);
-        }
-      } catch (error) {
-        console.log(error);
-        if (error && error.message === "Network Error") {
-          toast.error(
-            "Seems you're offline, please connect to a stable network",
-            toastOptions
-          );
-        }
-      }
-    }
-    // return () => {
-    //   getUsers();
-    // };
-    getUsers();
+  // useEffect(() => {
+  //   async function getUsers() {
+  //     try {
+  //       const response = await Axios.get(usersRoute);
+  //       console.log(response);
+  //       if (response.data.status === true) {
+  //         setUsers(response.data.data);
+  //         setIsUsersLoading(false);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //       if (error && error.message === "Network Error") {
+  //         toast.error(
+  //           "Seems you're offline, please connect to a stable network",
+  //           toastOptions
+  //         );
+  //       }
+  //     }
+  //   }
+  //   // return () => {
+  //   //   getUsers();
+  //   // };
+  //   getUsers();
 
-  }, []);
+  // }, []);
 
   return (
     <>
@@ -97,7 +100,7 @@ function Home() {
         {/* <Featured /> */}
         <OnRent properties={properties} isLoading={isLoading} />
         <Offer />
-        <Agents users={users} isUsersLoading={isUsersLoading} />
+        {/* <Agents users={users} isUsersLoading={isUsersLoading} /> */}
         <Footer />
       </Container>
       <ToastContainer />

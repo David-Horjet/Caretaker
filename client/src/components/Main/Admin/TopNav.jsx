@@ -156,6 +156,9 @@ const Container = styled.div`
     .hamburger {
       display: none !important;
     }
+    .profile-dropdown {
+      top: -200px !important;
+    }
   }
 
   @media (max-width: 576px) {

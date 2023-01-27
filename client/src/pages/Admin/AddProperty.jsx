@@ -9,8 +9,10 @@ import { addPropertyRoute, uploadRoute } from "../../utils/APIRoutes";
 import RoundLoader from "../../components/Loaders/RoundLoader";
 import toastOptions from "../../components/Toast/ToastOptions";
 import { authAxiosFile, authAxios } from "../../utils/Axios";
+import { useNavigate } from "react-router-dom";
 
 function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
+  const navigate = useNavigate()
   const [values, setValues] = useState({
     title: "",
     type: "Apartment",
@@ -61,7 +63,7 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
           } catch (error) {
             toast.error("Image upload failed", toastOptions);
           }
-        }
+        }           
         const response = await authAxios.post(addPropertyRoute, values);
         if (response.data.status === false) {
           toast.error(response.data.message, toastOptions);
@@ -69,6 +71,9 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
         }
         if (response.data.status === true) {
           toast.success(response.data.message, toastOptions);
+          setTimeout(() => {
+            navigate("/admin/dashboard")
+          }, 3000);
           setIsFetching(false)
         }
       }
