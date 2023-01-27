@@ -13,22 +13,22 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
 
   const [properties, setProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchText, setSearchText] = useState("")
+  // const [filteredList, setFilteredList] = useState(properties);
 
-  const [filteredList, setFilteredList] = useState(properties);
-
-  // console.log(filteredList);
+  console.log(properties);
 
   const filterBySearch = (event) => {
     // Access input value
-    const query = event.target.value;
+    setSearchText(event.target.value);
     // Create copy of item list
     var updatedList = [...properties];
     // Include all elements which includes the search query
     updatedList = updatedList.filter((item) => {
-      return item.title.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+      return item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
     });
     // Trigger render with updated values
-    setFilteredList(updatedList);
+    setProperties(updatedList);
   };
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
     }
     fetchProperties()
   }, [])
-  
+
 
   useEffect(() => {
     document.title = "Property Lists- CareTaker Admin";
@@ -50,16 +50,16 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
 
   return (
     <>
-    <FullScreen handle={handleFullScreen} onChange={reportChange}>
-    <Container>
-      <TopNav handleFullScreen={handleFullScreen} filterBySearch={filterBySearch} />
-      <main className="main row">
-        <SideNav />
-        <PropertyListsContainer properties={filteredList} isLoading={isLoading}/>
-      </main>
-    </Container>
-    <ToastContainer/>
-    </FullScreen>
+      <FullScreen handle={handleFullScreen} onChange={reportChange}>
+        <Container>
+          <TopNav handleFullScreen={handleFullScreen} filterBySearch={filterBySearch} />
+          <main className="main row">
+            <SideNav />
+            <PropertyListsContainer properties={properties} isLoading={isLoading} />
+          </main>
+        </Container>
+        <ToastContainer />
+      </FullScreen>
     </>
   );
 }

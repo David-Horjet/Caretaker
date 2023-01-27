@@ -37,8 +37,6 @@ function TopNav({ handleFullScreen, filterBySearch }) {
         <div className="col-sm-8 col-lg-4 rounded-2  search-bar">
           <form
             className="search-form w-100 d-flex align-items-center"
-            method="POST"
-            action="#"
           >
             <GoSearch />
             <div className="form-group">
