@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { FaLaptopHouse } from "react-icons/fa";
@@ -6,9 +6,15 @@ import { BiBuildingHouse } from "react-icons/bi";
 import { TbBuildingWarehouse } from "react-icons/tb";
 import houseIcon from "../../assets/images/icons/1.svg";
 import StrokeLoader from "../Loaders/StrokeLoader";
+import { Context } from "../../context/Context";
 
 function DashProp({ totalProperties, loadingProperties, tenants, isLoading }) {
-  console.log(totalProperties, loadingProperties, tenants, isLoading)
+  // console.log(totalProperties, loadingProperties, tenants, isLoading)
+  const { user } = useContext(Context);
+  const newTenantsArray = tenants.filter(function (e) {
+    return e.property?.caretaker === user?._id;
+  });
+  console.log(newTenantsArray)
   return (
     <Container className="card">
       <div className="card-body">
@@ -63,7 +69,7 @@ function DashProp({ totalProperties, loadingProperties, tenants, isLoading }) {
               isLoading ? (
                 <StrokeLoader />
               ) : (
-                  <h5>{tenants}</h5>
+                  <h5>{newTenantsArray?.length}</h5>
                   )
                 }
                   <span className="light-font">Tenants</span>
@@ -76,7 +82,7 @@ function DashProp({ totalProperties, loadingProperties, tenants, isLoading }) {
               isLoading ? (
                 <StrokeLoader />
               ) : (
-                  <h5>{totalProperties - tenants}</h5>
+                  <h5>{totalProperties - newTenantsArray?.length}</h5>
                   )
                 }
                   <span className="light-font">Available</span>

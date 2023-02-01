@@ -25,7 +25,7 @@ function PropertyLists({ FullScreen, handleFullScreen, reportChange }) {
     var updatedList = [...properties];
     // Include all elements which includes the search query
     updatedList = updatedList.filter((item) => {
-      return item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+      return item.title.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
     });
     // Trigger render with updated values
     setProperties(updatedList);

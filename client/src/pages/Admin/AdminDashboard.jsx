@@ -46,7 +46,7 @@ function AdminDashboard({ FullScreen, handleFullScreen, reportChange }) {
           setIsLoading(false);
         }
         if (response.data.status === true) {
-          setTenants(response.data.data.length);
+          setTenants(response.data.data);
           setIsLoading(false);
         }
       } catch (error) {
