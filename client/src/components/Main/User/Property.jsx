@@ -45,8 +45,7 @@ function Property({ data }) {
             </div>
             <div className="options">
               <div className="wish">
-                {user ? (<BsHeart />) : (<BsTrash onClick={deleteWarnFunction} />)}
-                {deleteWarn ? (<DeletePropertyWarning />) : (null)}
+                {user ? (<BsTrash onClick={deleteWarnFunction} />) : (<BsHeart />)}
               </div>
               <div className="copy">
                 <BsShare />
@@ -75,6 +74,8 @@ function Property({ data }) {
               </div>
             </div>
           </div>
+          
+          {deleteWarn ? (<DeletePropertyWarning />) : (null)}
 
           <div className="property-details p-3">
             <span className="font-roboto mb-2">{data.country}</span>

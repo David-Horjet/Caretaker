@@ -1,4 +1,22 @@
-const { Users } = require("../model/userModel");
+const Users = require("../model/userModel");
+
+const allUsers = async (req, res) => {
+  try {
+    const data = await Users.find();
+    return res.json({
+      status: true,
+      message: "user details available here",
+      data,
+    });
+
+  } catch (error) {
+    return res.json({
+      status: false,
+      message: `An error occured while fetching users`,
+      error,
+    });
+  }
+}
 
 const singleUser = async (req, res) => {
   try {
@@ -61,6 +79,7 @@ const updatePassword = async (req, res) => {
 };
 
 module.exports = {
+  allUsers,
   updatePassword,
-  singleUser,
+  singleUser
 };

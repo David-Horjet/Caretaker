@@ -49,7 +49,7 @@ function PropertyDetails() {
       <Container className="wrapper">
         <Header/>
         <PropertiesDetailsHero/>
-        <PropertyDetailsContainer properties={property} isLoading={isLoading} />
+        <PropertyDetailsContainer property={property} isLoading={isLoading} />
         <Footer/>
       </Container>
     </>

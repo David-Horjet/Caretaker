@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import agent1 from "../../../assets/images/agents/agent1.jpg";
-import { BsEnvelope, BsEye, BsHeart } from "react-icons/bs";
+import { BsEnvelope, BsHeart, BsTelephone } from "react-icons/bs";
 
 function Agent() {
   // { prop }
@@ -33,10 +33,10 @@ function Agent() {
               A real estate agent or broker is a person who represents sellers
               or buyers advised to consult a licensed.
             </p>
-            <Link to="/" className="btn mt-2">
-              <BsEye />
-              View Portfolio
-            </Link>
+            <a href="tel:+2348028187950" className="btn mt-2">
+              <BsTelephone />
+              Contact
+              </a>
           </div>
         </div>
       </Container>

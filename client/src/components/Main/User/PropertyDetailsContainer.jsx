@@ -4,19 +4,20 @@ import {
   MdOutlineBathroom,
   MdOutlineBedroomParent,
 } from "react-icons/md";
-import { BsFileEarmarkPdf, BsFillStarFill } from "react-icons/bs";
+import { BsFillStarFill } from "react-icons/bs";
 import StrokeLoader from "../../Loaders/StrokeLoader";
+import Agent from "./Agent";
 
 function PropertyDetailsContainer({ property, isLoading }) {
-    // console.log(property);
+  // console.log(property);
   return (
     <Container className="bg-light">
       {isLoading ? (
         <StrokeLoader />
       ) : (
         <div className="container-fluid">
-          <div className="single-title d-flex justify-content-between align-items-center mt-3">
-            <div className="left-single">
+          <div className="single-title row justify-content-between align-items-center mt-3">
+            <div className="left-single col-md-6">
               <div className="d-flex align-items-center">
                 <h2 className="mb-0">{property?.title}</h2>
                 <span>
@@ -24,24 +25,24 @@ function PropertyDetailsContainer({ property, isLoading }) {
                 </span>
               </div>
               <p className="mt-1 mb-3">
-              {property?.address}
+                {property?.address}
               </p>
               <ul className="d-flex">
                 <li>
                   <div className="d-flex align-items-center">
                     <MdOutlineBedroomParent />
-                    <span>{property?.room} Rooms</span>
+                    <span>{property?.room} Room(s)</span>
                   </div>
                 </li>
                 <li>
                   <div>
                     <MdOutlineBathroom />
-                    <span>{property?.bed} Bedrooms</span>
+                    <span>{property?.bed} Bedroom(s)</span>
                   </div>
                 </li>
               </ul>
             </div>
-            <div className="right-single">
+            <div className="right-single col-md-6">
               <div className="rating d-flex gap-2 pb-2 justify-content-end">
                 <BsFillStarFill />
                 <BsFillStarFill />
@@ -49,8 +50,8 @@ function PropertyDetailsContainer({ property, isLoading }) {
                 <BsFillStarFill />
                 <BsFillStarFill />
               </div>
-              <h2 className="price">
-              ₦{property?.price} <span>/ start From</span>
+              <h2 className="price d-flex justify-content-end mt-2">
+                ₦{property?.price}
               </h2>
             </div>
           </div>
@@ -63,13 +64,10 @@ function PropertyDetailsContainer({ property, isLoading }) {
                 <h4 class="content-title mb-3">Property Details</h4>
               </div>
               <div class="row">
-                <div class="col-md-6 col-xl-4">
+                <div class="col-md-6 col-lg-4">
                   <ul class="property-list-details">
                     <li>
                       <span>Property Type :</span> {property?.type}
-                    </li>
-                    <li>
-                      <span>Property ID :</span> {property?._id}
                     </li>
                     <li>
                       <span>Property status :</span> For {property?.status}
@@ -79,20 +77,20 @@ function PropertyDetailsContainer({ property, isLoading }) {
                     </li>
                   </ul>
                 </div>
-                <div class="col-md-6 col-xl-4">
+                <div class="col-md-6 col-lg-4">
                   <ul class="property-list-details">
                     <li>
                       <span>Price :</span> ₦{property?.price}
                     </li>
                     <li>
-                      <span>Property Size :</span> NaN
+                      <span>Country :</span> {property?.country}
                     </li>
                     <li>
                       <span>City :</span> {property?.city}
                     </li>
                   </ul>
                 </div>
-                <div class="col-md-6 col-xl-4">
+                <div class="col-md-6 col-lg-4">
                   <ul class="property-list-details">
                     <li>
                       <span>Rooms :</span> {property?.room}
@@ -101,19 +99,21 @@ function PropertyDetailsContainer({ property, isLoading }) {
                       <span>Bedrooms :</span> {property?.bed}
                     </li>
                     <li>
-                      <span>Bathrooms :</span> 4
+                      <span>Address :</span> {property?.address}
                     </li>
                   </ul>
                 </div>
               </div>
-              <h4 class="content-title mt-4 mb-3">Attachments</h4>
-              <a href="j" class="attach-file">
-                <BsFileEarmarkPdf /> Demo Property Document{" "}
-              </a>
-              <h4 class="mt-4 mb-3">Property Brief</h4>
-              <p>
-                {property?.description}
-              </p>
+              <div className="agent">
+                <h4 class="content-title mt-4 mb-3">Agent Details</h4>
+                <Agent/>
+              </div>
+              <div className="description">
+                <h4 class="mt-4 mb-3">Property Brief</h4>
+                <p>
+                  {property?.description}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -210,7 +210,7 @@ const Container = styled.div`
       padding: 0;
       li {
         display: block;
-        line-height: 2;
+        line-height: 3;
         font-weight: 500;
         color: rgba(88, 97, 103, 0.85);
         span {

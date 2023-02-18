@@ -86,28 +86,7 @@ const login = async (req, res) => {
   }
 };
 
-
-const allAppUser = async (req, res) => {
-  try {
-    
-    const data = await Users.find();
-    return res.json({
-      status: true,
-      message: "user details available here",
-      data,
-    });
-
-  } catch (error) {
-    return res.json({
-      status: false,
-      message: `You've got some errors`,
-      error,
-    });
-  }
-}
-
 module.exports = {
   register,
-  login,
-  allAppUser
+  login
 };
