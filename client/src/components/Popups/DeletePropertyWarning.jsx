@@ -3,12 +3,14 @@ import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Context } from "../../context/Context";
-import { deleteUserRoute } from "../../utils/APIRoutes";
+import { deletePropertyRoute } from "../../utils/APIRoutes";
 import axios from "axios";
+import RoundLoader from "../Loaders/RoundLoader";
 import { useNavigate } from "react-router-dom";
 
-function CloseAccountWarning() {
-  const { user,dispatch } = useContext(Context);
+function DeletePropertyWarning() {
+  const { user } = useContext(Context);
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false);
   const toastOptions = {
     position: "top-right",
@@ -17,20 +19,18 @@ function CloseAccountWarning() {
     draggable: true,
     theme: "light",
   };
-  const handleUerDelete = async (event) => {
+  const handlePropertyDelete = async (event) => {
     event.preventDefault();
     try {
       setIsLoading(true);
-      const { data } = await axios.delete(`${deleteUserRoute}/${user._id}`);
+      const { data } = await axios.delete(`${deletePropertyRoute}/${user._id}`);
       if (data.status === false) {
         toast.error(data.message, toastOptions);
         setIsLoading(false);
       }
       if (data.status === true) {
         toast.success(data.message, toastOptions);
-        setTimeout(() => {
-          dispatch({type: "LOGOUT"});
-        }, 5000);
+        navigate("/")
       }
     } catch (error) {
       toast.error(
@@ -44,9 +44,12 @@ function CloseAccountWarning() {
     <>
       <Container className="p-4">
         <h6 className="text-center py-2">
-          Are you sure you want to delete this account? This action is not
-          reversible, I hope you know 🙄
+          Delete Property?
         </h6>
+        <p className="text-center py-2">
+          Are you sure you want to delete this property? This action is not
+          reversible.
+        </p>
         <div className="row d-flex py-2 justify-content-center">
           <div className="col-5">
             <button id="cancel" className="btn btn-primary">
@@ -55,16 +58,15 @@ function CloseAccountWarning() {
           </div>
           <div className="col-5">
             {!isLoading ? (
-              <button onClick={handleUerDelete} className="btn btn-danger">
+              <button onClick={handlePropertyDelete} className="btn btn-danger">
                 Continue
               </button>
             ) : (
               <button
                 disabled
-                onClick={handleUerDelete}
                 className="btn btn-danger"
               >
-                deleting
+                <RoundLoader/>
               </button>
             )}
           </div>
@@ -99,4 +101,4 @@ const Container = styled.div`
   }
 `;
 
-export default CloseAccountWarning;
+export default DeletePropertyWarning;

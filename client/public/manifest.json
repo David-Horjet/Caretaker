@@ -1,6 +1,6 @@
 {
-  "short_name": "Preshy",
-  "name": "Preshy",
+  "short_name": "Caretaker",
+  "name": "Caretaker",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#ffffff",
-  "background_color": "#3378FF"
+  "theme_color": "#000",
+  "background_color": "#ffffff"
 }

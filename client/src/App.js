@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/style.css";
-import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Home from "./pages/Main/Home";
 import AddProperty from "./pages/Admin/AddProperty";
@@ -20,6 +19,8 @@ import { Context } from "./context/Context";
 import TenantForm from "./pages/Main/TenantForm";
 import Tenants from "./pages/Admin/Tenants";
 import TenantsApplication from "./pages/Main/TenantsApplication";
+import ForgotPassword from "./pages/Main/ForgotPassword";
+import PropertyDetails from "./pages/Main/PropertyDetails";
 
 function App() {
   const { user } = useContext(Context);
@@ -57,12 +58,13 @@ function App() {
               }
             />
             <Route exact path="/listings" element={<Listings />} />
-            <Route exact path="/listings/:id" element={<Listings />} />
+            <Route exact path="/listings/:id" element={<PropertyDetails />} />
             <Route exact path="/agents" element={<Agents />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/:id" element={user ? <Profile /> : <Login />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/forgotpassword" element={<ForgotPassword />} />
             <Route
               exact
               path="/admin/dashboard"
@@ -74,7 +76,7 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <AdminLogin />
+                  <Login />
                 )
               }
             />
@@ -89,7 +91,7 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <AdminLogin />
+                  <Login />
                 )
               }
             />
@@ -104,7 +106,7 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <AdminLogin />
+                  <Login />
                 )
               }
             />
@@ -119,11 +121,10 @@ function App() {
                     reportChange={reportChange}
                   />
                 ) : (
-                  <AdminLogin />
+                  <Login />
                 )
               }
             />
-            <Route exact path="/admin/login" element={<AdminLogin />} />
             <Route
               exact
               path="/admin/tenants"

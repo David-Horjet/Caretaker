@@ -29,7 +29,7 @@ function Home() {
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
-    navigate("/admin/login");
+    navigate("/login");
   };
 
   useEffect(() => {

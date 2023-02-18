@@ -2,37 +2,43 @@ import React from "react";
 import styled from "styled-components";
 import SkeletonLoader from "../../Loaders/SkeletonLoader";
 import Property from "./Property";
+// import { PropertiesData } from "../../DummyDatas/Properties";
 
-function ListingContainer({properties, isLoading}) {
+function ListingContainer(
+  {
+    properties,
+    isLoading
+  }
+) {
   return (
     <Container className="py-5">
       <div className="container-fluid">
         <div className="heading">
           <h2>Properties Listing</h2>
           <span className="show-result">
-            Showing <span>69</span> Listings
+            Showing <span>{properties.length}</span> Listings
           </span>
         </div>
       </div>
       <div className="container-fluid">
         <div className="listings pt-5">
-        {isLoading ? (
-              <div className="row">
-                <SkeletonLoader />
-              </div>
-            ) : (
-              <div className="row">
-                {properties.map((data) => {
-                  return (
-                    <Property
-                      data={data}
-                      isLoading={isLoading}
-                      key={data._id}
-                    />
-                  );
-                })}
-              </div>
-            )}
+          {isLoading ? (
+            <div className="row">
+              <SkeletonLoader />
+            </div>
+          ) : (
+            <div className="row">
+              {properties.map((data) => {
+                return (
+                  <Property
+                    data={data}
+                    isLoading={isLoading}
+                    key={data._id}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </Container>

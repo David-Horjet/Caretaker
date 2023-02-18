@@ -22,7 +22,7 @@ function Login() {
   const { dispatch, isFetching } = useContext(Context);
 
   useEffect(() => {
-    document.title = "User Login - CareTaker";
+    document.title = "Admin Login - CareTaker";
   });
 
   const handleSubmit = async (event) => {
@@ -47,17 +47,14 @@ function Login() {
             token: res.data.token,
           });
           toast.success(res.data.message, toastOptions);
-          toast.success("Wait while the application redirects you", toastOptions);
           setTimeout(() => {
-            navigate("/");
+            navigate("/admin/dashboard");
           }, 3000);
         }
       }
     } catch (error) {
       dispatch({ type: "LOGIN_FAILURE" });
-      if (error && error.message) {
-        toast.error(error.message, toastOptions);
-      }
+      // toast.error("Internal server error occured", toastOptions);
     }
   };
 
@@ -87,12 +84,15 @@ function Login() {
           <div className="col-lg-4 col-sm-8 col-12 form-login">
             <div className="card rounded shadow mt-5 p-3">
               <div className="card-body">
-                <Link to="/" className="logo  d-flex justify-content-center align-items-center">
+                <Link
+                  to="/"
+                  className="logo  d-flex justify-content-center align-items-center"
+                >
                   <SiHomeadvisor />
                   <span className="d-lg-block">CareTaker</span>
                 </Link>
                 <div className="title-3 my-4 text-center">
-                  <h2>Welcome Back</h2>
+                  <h2>Admin Login</h2>
                 </div>
                 <form
                   onSubmit={(event) => handleSubmit(event)}
@@ -154,6 +154,7 @@ function Login() {
                     </label>
                     <Link
                       to="/forgotpassword"
+                      className="font-rubik text-color-2"
                     >
                       Forgot password ?
                     </Link>
@@ -179,9 +180,6 @@ function Login() {
                     >
                       Register
                     </Link>
-                  </div>
-                  <div className="text-center mt-5">
-                    <small>Sign in as a <Link to={"/admin/login"}>Caretaker</Link></small>
                   </div>
                 </form>
               </div>
@@ -218,7 +216,7 @@ const FormContainer = styled.div`
     h2 {
       position: relative;
       overflow: hidden;
-      font-size: 20px;
+      font-size: 25px;
       &:before {
         position: absolute;
         content: "";
@@ -245,9 +243,10 @@ const FormContainer = styled.div`
         outline: none;
         border-bottom: 1px solid #eee;
         position: relative;
+        padding: 10px;
+        -webkit-box-flex: 1;
         font-size: 14px;
         font-weight: 500;
-        padding: 10px;
         &:focus {
           outline: none !important;
         }
@@ -300,7 +299,6 @@ const FormContainer = styled.div`
         -webkit-transition: all 0.5s ease;
         transition: all 0.5s ease;
         position: relative;
-        text-align: center;
         padding: 9px 30px;
         font-size: 15px;
         border-radius: 30px;

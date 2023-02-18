@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../../components/Main/User/Header";
-import ListingContainer from "../../components/Main/User/ListingContainer";
-import ListingHero from "../../components/Main/User/ListingHero";
 import Footer from "../../components/Main/User/Footer";
-import { allPropertyRoute } from "../../utils/APIRoutes";
-import { authAxios } from "../../utils/Axios";
+import { singlePropertyRoute } from "../../utils/APIRoutes";
+import { Axios } from "../../utils/Axios";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../utils/Toast";
+import PropertyDetailsContainer from "../../components/Main/User/PropertyDetailsContainer";
+import PropertiesDetailsHero from "../../components/Main/User/PropertiesDetailsHero";
+import { useLocation } from "react-router-dom";
 
 function PropertyDetails() {
   const [property, setProperty] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
 
   useEffect(() => {
     document.title = "Property Lists - CareTaker";
@@ -20,7 +23,7 @@ function PropertyDetails() {
   useEffect(() => {
     async function fetchProperty() {
       try {
-        const response = await authAxios.get(allPropertyRoute);
+        const response = await Axios.get(`${singlePropertyRoute}/${id}`);
         console.log(response);
         if (response.data.status === true) {
           setProperty(response.data.data);
@@ -40,13 +43,13 @@ function PropertyDetails() {
     //  fetchProperty();
     // };
     fetchProperty();
-  }, []);
+  }, [id]);
   return (
     <>
       <Container className="wrapper">
         <Header/>
-        <ListingHero/>
-        <ListingContainer properties={property} isLoading={isLoading} />
+        <PropertiesDetailsHero/>
+        <PropertyDetailsContainer properties={property} isLoading={isLoading} />
         <Footer/>
       </Container>
     </>

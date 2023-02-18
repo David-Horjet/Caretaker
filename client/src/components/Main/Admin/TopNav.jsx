@@ -12,7 +12,7 @@ function TopNav({ handleFullScreen, filterBySearch }) {
   const { user, dispatch } = useContext(Context);
   const [profileActive, setProfileActive] = useState(false);
 
-  const profileText = user?.firstName.split("")[0];
+  const profileText = user?.firstName?.split("")[0];
   const fullName = user?.firstName + " " + user?.lastName;
 
   const handleProfile = () => {
@@ -21,7 +21,7 @@ function TopNav({ handleFullScreen, filterBySearch }) {
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
-    navigate("/admin/login");
+    navigate("/login");
   };
 
   const handleSearchWarning = () => {

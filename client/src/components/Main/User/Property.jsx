@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { BsHeart, BsShare } from "react-icons/bs";
+import { BsHeart, BsShare, BsTrash } from "react-icons/bs";
 import { IoIosBed } from "react-icons/io";
 import "react-loading-skeleton/dist/skeleton.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,15 +9,30 @@ import { toast } from "react-toastify";
 import { FaBath, FaRulerCombined } from "react-icons/fa";
 import { toastOptions } from "../../../utils/Toast";
 import { clientHost, host, filesUploadRoute } from "../../../utils/APIRoutes";
+import { Context } from "../../../context/Context";
+import DeletePropertyWarning from "../../Popups/DeletePropertyWarning";
 
 function Property({ data }) {
+  const { user } = useContext(Context);
+  const [deleteWarn, setDeleteWarn] = useState(false);
   const copyPropertyLink = async () => {
     try {
-      await navigator.clipboard.writeText(`${clientHost}/tenantform/${data._id}`);
+      await navigator.clipboard.writeText(`${clientHost}/listings/${data._id}`);
       toast.success("Property Link successfully copied", toastOptions);
     } catch (err) {
-      toast.error("An error occured copying property link", toastOptions); 
+      toast.error("An error occured copying property link", toastOptions);
     }
+  };
+  const copyTenantFormLink = async () => {
+    try {
+      await navigator.clipboard.writeText(`${clientHost}/tenantform/${data._id}`);
+      toast.success("Tenant Form Link successfully copied", toastOptions);
+    } catch (err) {
+      toast.error("An error occured copying property link", toastOptions);
+    }
+  };
+  const deleteWarnFunction = () => {
+    setDeleteWarn(!deleteWarn);
   };
   return (
     <>
@@ -30,7 +45,8 @@ function Property({ data }) {
             </div>
             <div className="options">
               <div className="wish">
-                <BsHeart />
+                {user ? (<BsHeart />) : (<BsTrash onClick={deleteWarnFunction} />)}
+                {deleteWarn ? (<DeletePropertyWarning />) : (null)}
               </div>
               <div className="copy">
                 <BsShare />
@@ -46,12 +62,12 @@ function Property({ data }) {
                     <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
                   </svg>
                   <li className="rounded">
-                    <Link onClick={copyPropertyLink} to={`/admin/property/all`}>
+                    <div onClick={user ? copyTenantFormLink : copyPropertyLink} to={user ? `/admin/property/all` : `/listings`}>
                       <span>Copy</span>
-                    </Link>
+                    </div>
                   </li>
                   <li className="rounded">
-                    <a href={`${clientHost}/tenantform/${data._id}`}target="_blank" rel="noopener noreferrer">
+                    <a href={user ? `${clientHost}/tenantform/${data._id}` : `${clientHost}/listings/${data._id}`} target="_blank" rel="noopener noreferrer">
                       <span>Go</span>
                     </a>
                   </li>
@@ -62,7 +78,7 @@ function Property({ data }) {
 
           <div className="property-details p-3">
             <span className="font-roboto mb-2">{data.country}</span>
-            <Link to={`/admin/property/${data._id}`}>
+            <Link to={user ? `/admin/property/${data._id}` : `/listings/${data._id}`}>
               <h4>{data.title}</h4>
             </Link>
             <h6>₦{data.price}</h6>
@@ -83,7 +99,7 @@ function Property({ data }) {
             <div className="property-btn d-flex align-items-center justify-content-between">
               <span>August 4, 2022</span>
               <button type="button" className="btn btn-dashed btn-pill color-2">
-                <Link to={`/admin/property/${data._id}`}>Details</Link>
+                <Link to={user ? `/admin/property/${data._id}` : `/listings/${data._id}`}>Details</Link>
               </button>
             </div>
           </div>

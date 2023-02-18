@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Property from "./Property";
 import SkeletonLoader from "../../Loaders/SkeletonLoader";
 import { allPropertyRoute } from "../../../utils/APIRoutes";
 import { Axios } from "../../../utils/Axios";
-import {toastOptions} from "../../../utils/Toast"
+import { toastOptions } from "../../../utils/Toast"
 
-function OnRent({
-  //  properties, 
-  //  isLoading 
-  }) {
+function OnRent(
+  // {
+  //   properties,
+  //   isLoading
+  // }
+) {
   const [properties, setProperties] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

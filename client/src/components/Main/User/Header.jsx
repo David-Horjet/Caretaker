@@ -94,7 +94,7 @@ function Header() {
                 </li>
               ) : (
                 <li className="user">
-                  <Link to="/admin/login">
+                  <Link to="/login">
                     <FiUser />
                   </Link>
                 </li>
