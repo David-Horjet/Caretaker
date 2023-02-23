@@ -1,5 +1,6 @@
 const { Users } = require("../model/userModel");
 
+
 const { validatePassword, generateHashed } = require("../utils/auth");
 const { generateAccessToken } = require("../utils/jwt");
 
@@ -24,7 +25,7 @@ const register = async (req, res) => {
       email: casedEmail,
       password: hashedPassword,
     });
-    
+
     const token = generateAccessToken({ userId: data._id });
 
     const { password, ...others } = data._doc;
@@ -35,7 +36,6 @@ const register = async (req, res) => {
       data: others,
       token,
     });
-
   } catch (error) {
     return res.json({
       status: false,
@@ -78,15 +78,59 @@ const login = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
     return res.json({
       status: false,
       message: `You've got some errors`,
-      error: "There was a problem signing in",
+      error
     });
   }
 };
-
+const getUsers = async (req, res) => {
+  try {
+    const users = await Users.find();
+    return res.json({
+      status: true,
+      message: "Here are the Users in the DB",
+      data: users,
+    });
+  } catch (error) {
+    return res.json({
+      status: false,
+      message: `You've got some errors`,
+      // error: "There was a problem signing in",
+    });
+  }
+};
+const getsingleUser = async (req, res) => {
+  try {
+    const userId = req.query
+    const users = await Users.findOne({_id : userId});
+    if (users) {
+      return res.json({
+        status: true,
+        msg: `User's data fetched successfully`,
+        data: users
+      });
+    } else {
+      return res.json({
+        status: false,
+        msg: `Can't Find user's details`,
+        err
+      });
+    }
+  
+  } catch (error) {
+    return res.json({
+      status: false,
+      message: `You've got some errors`,
+      error
+    });
+  }
+};
 module.exports = {
   register,
-  login
+  login,
+  getUsers,
+  getsingleUser
 };

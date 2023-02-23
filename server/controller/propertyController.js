@@ -156,37 +156,62 @@ const updateListedProp = async (req, res) => {
   }
 };
 
+// const deleteProps = async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     const Props = await Property.findById({_id: id}).populate("caretaker");
+//     if (!Props) {
+//       return res.status(400).json({
+//         status: false,
+//         message: "Property Not found In DB",
+//       });
+//     }
+//     if (Props.caretaker._id == req.body._id) {
+//       return res.status(400).json({
+//         status: false,
+//         message: "You are not authorized to delete this property",
+//       });
+//     }
+//    await Props.findByIdAndDelete(id);
+//     return res.status(201).json({
+//       status: true,
+//       message: "Property deleted Successful",
+//       Props,
+//     });
+//   } catch (error) {
+//     return res.status(400).json({
+//       status: false,
+//       message: `You've got some errors - ${error}`,
+//       error: "An error occured while signing",
+//     });
+//   }
+// };
 const deleteProps = async (req, res) => {
   try {
     const id = req.params.id;
-    const Props = await Property.findById(id).populate("caretaker");
-    if (!Props) {
-      return res.status(400).json({
+    const data = await Property.findByIdAndDelete({
+      _id: id,
+    })
+    if (data) {
+      return res.json({
+        status: true,
+        msg: `Property's data deleted successfully`,
+        data,
+      });
+    } else {
+      return res.json({
         status: false,
-        message: "Property Not found In DB",
+        msg: `Can't Find Property's details`,
       });
     }
-    if (Props.caretaker._id.toString() != req.body._id.toString()) {
-      return res.status(400).json({
-        status: false,
-        message: "You are not authorized to delete this property",
-      });
-    }
-    Props.findByIdAndDelete(id);
-    return res.status(201).json({
-      status: true,
-      message: "Property deleted Successful",
-      Props,
-    });
   } catch (error) {
-    return res.status(400).json({
+    return res.json({
       status: false,
-      message: `You've got some errors - ${error}`,
-      error: "An error occured while signing",
+      message: `You've got some errors`,
+      error,
     });
   }
 };
-
 const allAppUser = async (req, res) => {
   try {
     const data = await Users.find();
@@ -210,4 +235,5 @@ module.exports = {
   uploadFile,
   getProperty,
   allAppUser,
+  deleteProps
 };

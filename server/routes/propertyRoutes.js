@@ -11,6 +11,7 @@ propertyRouter.post('/new', loginRequired, controller.addProperty)
 propertyRouter.post('/upload', loginRequired, controller.uploadFile)
 propertyRouter.get('/:id', controller.getProperty)
 propertyRouter.get('/allu', controller.allAppUser)
+propertyRouter.post('/prop/:id',loginRequired,controller.deleteProps)
 
 module.exports = {
     propertyRouter
