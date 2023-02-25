@@ -189,9 +189,9 @@ const updateListedProp = async (req, res) => {
 const deleteProps = async (req, res) => {
   try {
     const id = req.params.id;
-    const data = await Property.findByIdAndDelete({
-      _id: id,
-    })
+    // console.log("id:", id)
+    const data = await Property.findByIdAndDelete(id)
+    // console.log("data:", data)
     if (data) {
       return res.json({
         status: true,
