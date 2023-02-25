@@ -119,7 +119,7 @@ function AddProperty({ FullScreen, handleFullScreen, reportChange }) {
       
       return false;
     } else if (address === "") {
-      toast.error("Addresponses is required", toastOptions);
+      toast.error("Address is required", toastOptions);
       
       return false;
     } else if (description === "") {

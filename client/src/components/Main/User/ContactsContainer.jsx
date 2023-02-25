@@ -194,36 +194,7 @@ padding: 90px 0;
         letter-spacing: 0.5px;
         color: #647589;
       }
-      .btn {
-        color: var(--pure-white);
-        background-image: var(--theme-gradient2);
-        border-radius: 30px;
-        background-size: 200% auto;
-        -webkit-transition: all 0.5s ease;
-        transition: all 0.5s ease;
-        border: 2px solid transparent;
-        font-weight: 600;
-        text-transform: capitalize;
-        padding: 8px 30px 7px;
-        border-radius: 8px;
-        font-size: 14px;
-        position: relative;
-        &::after {
-          position: absolute;
-          content: "";
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 30px;
-          opacity: 0.3;
-          -webkit-box-shadow: -5.15px 8.572px 25px var(--theme-default8);
-          box-shadow: -5.15px 8.572px 25px var(--theme-default8);
-        }
-        svg {
-          margin-right: 7px;
-        }
-      }
+       
     }
   }
   }

@@ -195,13 +195,13 @@ const deleteProps = async (req, res) => {
     if (data) {
       return res.json({
         status: true,
-        msg: `Property's data deleted successfully`,
+        message: `Property's data deleted successfully`,
         data,
       });
     } else {
       return res.json({
         status: false,
-        msg: `Can't Find Property's details`,
+        message: `Can't Find Property's details`,
       });
     }
   } catch (error) {

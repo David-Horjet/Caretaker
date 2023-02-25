@@ -74,8 +74,8 @@ function Property({ data }) {
               </div>
             </div>
           </div>
-          
-          {deleteWarn ? (<DeletePropertyWarning />) : (null)}
+
+          {deleteWarn ? (<DeletePropertyWarning deleteWarnFunction={deleteWarnFunction} />) : (null)}
 
           <div className="property-details p-3">
             <span className="font-roboto mb-2">{data.country}</span>

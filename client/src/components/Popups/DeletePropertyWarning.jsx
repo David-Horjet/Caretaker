@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Context } from "../../context/Context";
 import { deletePropertyRoute } from "../../utils/APIRoutes";
-import axios from "axios";
 import RoundLoader from "../Loaders/RoundLoader";
 import { useNavigate } from "react-router-dom";
+import { authAxios } from "../../utils/Axios";
 
-function DeletePropertyWarning() {
+function DeletePropertyWarning({deleteWarnFunction}) {
   const { user } = useContext(Context);
   const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false);
@@ -23,16 +23,20 @@ function DeletePropertyWarning() {
     event.preventDefault();
     try {
       setIsLoading(true);
-      const { data } = await axios.delete(`${deletePropertyRoute}/${user._id}`);
+      const { data } = await authAxios.delete(`${deletePropertyRoute}/${user._id}`);
       if (data.status === false) {
         toast.error(data.message, toastOptions);
         setIsLoading(false);
       }
       if (data.status === true) {
+        setIsLoading(false);
         toast.success(data.message, toastOptions);
-        navigate("/")
+        setTimeout(() => {
+          navigate("/admin/dashboard")
+        }, 3000);
       }
     } catch (error) {
+      console.log(error)
       toast.error(
         "Network Error, Check your network comrade and try again",
         toastOptions
@@ -52,7 +56,7 @@ function DeletePropertyWarning() {
         </p>
         <div className="row d-flex py-2 justify-content-center">
           <div className="col-5">
-            <button id="cancel" className="btn btn-primary">
+            <button id="cancel" onClick={deleteWarnFunction} className="btn btn-primary">
               Cancel
             </button>
           </div>
@@ -72,19 +76,21 @@ function DeletePropertyWarning() {
           </div>
         </div>
         {isLoading && (
-          <p className="text-center py-2">
-            please don't refresh or close this page
+          <p className="text-center py-2 text-danger">
+            please don't refresh or close this page!!!
           </p>
         )}
       </Container>
-      <ToastContainer />
     </>
   );
 }
 
 const Container = styled.div`
-  background: var(--faded-primary-color);
+  background: rgb(248,249,250);
   border-radius: 20px;
+  -webkit-box-shadow: 3.346px 3.716px 22.5px rgb(0 0 0 / 7%);
+  box-shadow: 3.346px 3.716px 22.5px rgb(0 0 0 / 7%);
+  z-index: 100000;
   width: 300px;
   position: absolute;
   transform: translate(-50%, -50%) scale(1);
